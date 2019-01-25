@@ -1,0 +1,10 @@
+#N canvas 959 446 450 449 10;
+#X obj 45 129 breath;
+#X obj 49 183 ECG;
+#X obj 224 143 ossia biomediacl_dignal_generator;
+#X obj 224 59 loadbang;
+#X msg 224 101 expose oscquery;
+#X msg 348 102 \; pd dsp 1;
+#X connect 3 0 4 0;
+#X connect 3 0 5 0;
+#X connect 4 0 2 0;
