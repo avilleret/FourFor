@@ -1,6 +1,6 @@
-project(biomedical_display)
+project(video_player)
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 2.8)
 
 set(OF_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../of/" CACHE PATH "The root directory of ofnode/of project.")
 include(${OF_ROOT}/openFrameworks.cmake)
@@ -9,8 +9,7 @@ include(${OF_ROOT}/openFrameworks.cmake)
 
 set(SOURCES
     src/main.cpp
-    src/biomedical_display.cpp
-    src/oscilloscope.cpp
+    src/video_player.cpp
 )
 
 add_executable(
@@ -23,7 +22,6 @@ add_executable(
 target_link_libraries(
     ${PROJECT_NAME}
     ${OPENFRAMEWORKS_LIBRARIES}
-    ossia
 )
 
 ofSetTargetProperties()
