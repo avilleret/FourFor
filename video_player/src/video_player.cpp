@@ -2,6 +2,7 @@
 
 void video_player::setup()
 {
+  m_server.setup("video_player");
 }
 
 void video_player::update()
