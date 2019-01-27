@@ -24,6 +24,9 @@ if(TARGET_ARCH MATCHES arm*)
       ${PROJECT_NAME}
       ${OPENFRAMEWORKS_LIBRARIES}
       ossia
+      pcre
+      libilclient.a
+      libvcilcs.a
   )
 
   ofSetTargetProperties()
