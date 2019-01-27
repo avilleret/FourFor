@@ -27,3 +27,11 @@ target_link_libraries(
 )
 
 ofSetTargetProperties()
+
+install(TARGETS ${PROJECT_NAME}
+  RUNTIME DESTINATION .
+  LIBRARY DESTINATION lib)
+
+install(FILES
+  ${OF_LIB_DIR}/libopenFrameworks.so
+  DESTINATION lib)

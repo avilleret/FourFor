@@ -30,4 +30,8 @@ if(TARGET_ARCH MATCHES arm*)
   )
 
   ofSetTargetProperties()
+
+  install(TARGETS ${PROJECT_NAME}
+    RUNTIME DESTINATION .
+    LIBRARY DESTINATION lib)
 endif()

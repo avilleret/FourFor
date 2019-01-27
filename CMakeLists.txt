@@ -1,6 +1,11 @@
 project(FourFor)
 
 cmake_minimum_required(VERSION 3.10)
+set(CMAKE_INSTALL_RPATH "$ORIGIN/lib:$ORIGIN")
+
+set(OF_STATIC OFF CACHE BOOL "")
+add_subdirectory(biomedical_display)
+add_subdirectory(video_player)
 
 set(OSSIA_ROOT libossia)
 
@@ -10,7 +15,7 @@ set(OSSIA_PD OFF CACHE BOOL "")
 set(OSSIA_MAX OFF CACHE BOOL "")
 set(OSSIA_PYTHON OFF CACHE BOOL "")
 set(OSSIA_CPP ON CACHE BOOL "")
-set(OSSIA_C ON CACHE BOOL "")
+set(OSSIA_C OFF CACHE BOOL "")
 set(OSSIA_PROTOCOL_MIDI OFF CACHE BOOL "")
 set(OSSIA_PROTOCOL_AUDIO OFF CACHE BOOL "")
 set(OSSIA_PROTOCOL_MINUIT OFF CACHE BOOL "")
@@ -22,5 +27,9 @@ set(OSSIA_NO_INSTALL ON CACHE BOOL "")
 set(OSSIA_DNSSD OFF CACHE BOOL "")
 set(OSSIA_STATIC OFF CACHE BOOL "")
 add_subdirectory(${OSSIA_ROOT})
-add_subdirectory(biomedical_display)
-add_subdirectory(video_player)
+
+install(
+  FILES
+      "${CMAKE_CURRENT_BINARY_DIR}/libossia/OSSIA/libossia.so"
+  DESTINATION lib
+)
