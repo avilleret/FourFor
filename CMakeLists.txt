@@ -33,3 +33,8 @@ install(
       "${CMAKE_CURRENT_BINARY_DIR}/libossia/OSSIA/libossia.so"
   DESTINATION lib
 )
+
+install(
+  DIRECTORY
+  "${CMAKE_CURRENT_LIST_DIR}/shaders"
+  DESTINATION data)

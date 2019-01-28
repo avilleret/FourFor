@@ -34,4 +34,7 @@ install(TARGETS ${PROJECT_NAME}
 
 install(FILES
   ${OF_LIB_DIR}/libopenFrameworks.so
+  ${OF_LIB_DIR}/libglfw.so
+  ${OF_LIB_DIR}/libglfw.so.3
+  ${OF_LIB_DIR}/libglfw.so.3.1
   DESTINATION lib)
