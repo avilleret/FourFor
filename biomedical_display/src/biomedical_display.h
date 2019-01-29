@@ -23,4 +23,5 @@ class biomedical_display : public ofBaseApp
     opp::oscquery_server m_server;
 
     ofxShadertoy m_shader;
+    ofFbo m_fbo;
 };

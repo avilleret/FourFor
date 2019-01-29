@@ -1,10 +1,10 @@
 // change these values to 0.0 to turn off individual effects
-float vertJerkOpt = 1.0;
-float vertMovementOpt = 1.0;
-float bottomStaticOpt = 1.0;
-float scalinesOpt = 1.0;
-float rgbOffsetOpt = 1.0;
-float horzFuzzOpt = 1.0;
+uniform float vertJerkOpt = 1.0;
+uniform float vertMovementOpt = 1.0;
+uniform float bottomStaticOpt =1.0;
+uniform float scalinesOpt = 1.0;
+uniform float rgbOffsetOpt = 1.0;
+uniform float horzFuzzOpt = 1.0;
 
 // Noise generation functions borrowed from:
 // https://github.com/ashima/webgl-noise/blob/master/src/noise2D.glsl
@@ -107,13 +107,18 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 
     staticVal *= bottomStaticOpt;
 
-  float red 	=   texture(	iChannel0, 	vec2(uv.x + xOffset -0.01*rgbOffsetOpt,y)).r+staticVal;
-  float green = 	texture(	iChannel0, 	vec2(uv.x + xOffset,	  y)).g+staticVal;
-  float blue 	=	texture(	iChannel0, 	vec2(uv.x + xOffset +0.01*rgbOffsetOpt,y)).b+staticVal;
+    vec2 rcoord = vec2(uv.x + xOffset -0.01*rgbOffsetOpt,y) * iResolution.xy;
+    vec2 gcoord = vec2(uv.x + xOffset,	  y) * iResolution.xy;
+    vec2 bcoord = vec2(uv.x + xOffset +0.01*rgbOffsetOpt,y) * iResolution.xy;
+
+  float red 	=   texture(	iChannel0, 	rcoord).r+staticVal;
+  float green = 	texture(	iChannel0, 	gcoord).g+staticVal;
+  float blue 	=	texture(	iChannel0, 	bcoord).b+staticVal;
 
   vec3 color = vec3(red,green,blue);
   float scanline = sin(uv.y*800.0)*0.04*scalinesOpt;
   color -= scanline;
 
   fragColor = vec4(color,1.0);
+  //fragColor = vec4(1.,1.,1.,2.) - texture(iChannel0, fragCoord);
 }

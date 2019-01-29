@@ -16,6 +16,7 @@
 void biomedical_display::setup()
 {
   ofSetBackgroundColor(ofColor::black);
+  // ofSetLogLevel(ofLogLevel::OF_LOG_VERBOSE);
 
   m_server.setup("biomedical_display");
   auto root = m_server.get_root_node();
@@ -29,7 +30,9 @@ void biomedical_display::setup()
   m_oscillos[1].set_color(ofColor::blue);
 
   m_shader.load("shaders/distorted TV.fs");
-  m_shader.setAdvanceTime(true);
+
+  ofResizeEventArgs size(ofGetWidth(), ofGetHeight());
+  windowResized(size);
 
   UNIFORM_NODE("vertical_jerk","vertJerkOpt")
   UNIFORM_NODE("vertical_movement", "vertMovementOpt")
@@ -50,13 +53,18 @@ void biomedical_display::update()
 
 void biomedical_display::draw()
 {
-  m_shader.begin();
+  m_fbo.begin();
+  ofClear(ofColor::black);
   int i=0;
   for(auto& osc : m_oscillos)
   {
     osc.draw(0.,float(i)/m_oscillos.size(),1.,1./m_oscillos.size());
     i++;
   }
+  m_fbo.end();
+
+  m_shader.begin();
+    m_fbo.draw(0.,0.);
   m_shader.end();
 }
 
@@ -70,6 +78,11 @@ void biomedical_display::messageReceived(ofMessage& message)
 
 void biomedical_display::windowResized   (ofResizeEventArgs& args)
 {
+  m_fbo.allocate(ofGetWidth(), ofGetHeight());
+  m_fbo.begin();
+  ofClear(ofColor::black);
+  m_fbo.end();
   m_shader.setDimensions(args.width, args.height);
+  m_shader.setTexture(0,m_fbo);
 }
 
