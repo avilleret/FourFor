@@ -4,3 +4,6 @@
 [submodule "video_player/ofxOMXPlayer"]
 	path = video_player/ofxOMXPlayer
 	url = https://github.com/avilleret/ofxOMXPlayer.git
+[submodule "ofxShadertoy"]
+	path = ofxShadertoy
+	url = https://github.com/tiagosr/ofxShadertoy
