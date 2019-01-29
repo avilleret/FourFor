@@ -34,6 +34,10 @@ install(
   DESTINATION lib
 )
 
+# These two lines are used to display the shaders in the project view of IDEs
+file(GLOB SHADERS_SRC "${CMAKE_CURRENT_LIST_DIR}/shaders/*")
+add_custom_target(shaders SOURCES ${SHADERS_SRC})
+
 install(
   DIRECTORY
   "${CMAKE_CURRENT_LIST_DIR}/shaders"
