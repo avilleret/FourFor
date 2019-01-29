@@ -7,9 +7,9 @@
   n.set_value_callback([](void* ctx, const opp::value& v){ \
     biomedical_display* ptr = static_cast<biomedical_display*>(ctx); \
     float f = v.to_float(); \
-    ptr->get_shader().setUniform1f(uniform_name, f); \
-    std::cout << "update " << uniform_name << " to " << f << std::endl; \
+    ptr->m_uniform_map[node_name].second = f; \
   }, this); \
+  m_uniform_map[node_name] = std::pair<std::string, float>(uniform_name, 0.); \
   n.set_value(0); \
 }
 
@@ -29,7 +29,7 @@ void biomedical_display::setup()
   m_oscillos[0].set_color(ofColor::green);
   m_oscillos[1].set_color(ofColor::blue);
 
-  m_shader.load("shaders/distorted TV.fs");
+  m_shader.load("shaders/distorted TV.fs", 2);
 
   ofResizeEventArgs size(ofGetWidth(), ofGetHeight());
   windowResized(size);
@@ -64,7 +64,11 @@ void biomedical_display::draw()
   m_fbo.end();
 
   m_shader.begin();
+  {
+    for(const auto& key : m_uniform_map)
+      m_shader.setUniform1f(key.second.first, key.second.second);
     m_fbo.draw(0.,0.);
+  }
   m_shader.end();
 }
 

@@ -18,6 +18,8 @@ class biomedical_display : public ofBaseApp
 
     ofxShadertoy& get_shader() { return m_shader; }
 
+    std::map<std::string, std::pair<std::string, float>> m_uniform_map;
+
   private:
     std::vector<Oscilloscope> m_oscillos;
     opp::oscquery_server m_server;

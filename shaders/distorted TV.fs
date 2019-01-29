@@ -1,10 +1,10 @@
 // change these values to 0.0 to turn off individual effects
-uniform float vertJerkOpt = 1.0;
-uniform float vertMovementOpt = 1.0;
-uniform float bottomStaticOpt =1.0;
-uniform float scalinesOpt = 1.0;
-uniform float rgbOffsetOpt = 1.0;
-uniform float horzFuzzOpt = 1.0;
+uniform float vertJerkOpt;
+uniform float vertMovementOpt;
+uniform float bottomStaticOpt;
+uniform float scalinesOpt;
+uniform float rgbOffsetOpt;
+uniform float horzFuzzOpt;
 
 // Noise generation functions borrowed from:
 // https://github.com/ashima/webgl-noise/blob/master/src/noise2D.glsl
