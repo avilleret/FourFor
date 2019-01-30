@@ -26,4 +26,7 @@ class biomedical_display : public ofBaseApp
 
     ofxShadertoy m_shader;
     ofFbo m_fbo;
+   ofFbo m_PALfbo;
+
+   ofVec2f render_size;
 };

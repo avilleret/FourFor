@@ -54,9 +54,8 @@ void Oscilloscope::update()
 void Oscilloscope::draw(float x, float y, float w, float h)
 {
   ofPushMatrix();
-  ofTranslate(x*ofGetWidth(),y*ofGetHeight());
-  ofScale(w,h);
-  ofScale(float(ofGetWidth())/float(m_buffer.size()), ofGetHeight());
+  ofTranslate(x,y);
+  ofScale(float(w)/float(m_buffer.size()),h);
 
   ofPushStyle();
   ofSetColor(m_color);

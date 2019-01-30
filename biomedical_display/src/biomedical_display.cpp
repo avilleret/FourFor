@@ -58,11 +58,13 @@ void biomedical_display::draw()
   int i=0;
   for(auto& osc : m_oscillos)
   {
-    osc.draw(0.,float(i)/m_oscillos.size(),1.,1./m_oscillos.size());
+    osc.draw(0.,float(i)/m_oscillos.size()*render_size.y,
+             render_size.x,float(render_size.y)/m_oscillos.size());
     i++;
   }
   m_fbo.end();
 
+  m_PALfbo.begin();
   m_shader.begin();
   {
     for(const auto& key : m_uniform_map)
@@ -70,6 +72,9 @@ void biomedical_display::draw()
     m_fbo.draw(0.,0.);
   }
   m_shader.end();
+  m_PALfbo.end();
+
+  m_PALfbo.draw(0,0,ofGetWidth(), ofGetHeight());
 }
 
 void biomedical_display::exit()
@@ -82,10 +87,18 @@ void biomedical_display::messageReceived(ofMessage& message)
 
 void biomedical_display::windowResized   (ofResizeEventArgs& args)
 {
-  m_fbo.allocate(ofGetWidth(), ofGetHeight());
+  render_size.y = 576;
+  render_size.x = float(ofGetWidth()*render_size.y)/ofGetHeight();
+
+  m_fbo.allocate(render_size.x, render_size.y);
   m_fbo.begin();
   ofClear(ofColor::black);
   m_fbo.end();
+
+  m_PALfbo.allocate(render_size.x, render_size.y);
+  m_PALfbo.begin();
+  ofClear(ofColor::black);
+  m_PALfbo.end();
   m_shader.setDimensions(args.width, args.height);
   m_shader.setTexture(0,m_fbo);
 }
