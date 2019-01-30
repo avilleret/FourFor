@@ -34,7 +34,12 @@ install(TARGETS ${PROJECT_NAME}
 
 install(FILES
   ${OF_LIB_DIR}/libopenFrameworks.so
-  ${OF_LIB_DIR}/libglfw.so
-  ${OF_LIB_DIR}/libglfw.so.3
-  ${OF_LIB_DIR}/libglfw.so.3.1
   DESTINATION lib)
+
+if(NOT TARGET_ARCH MATCHES arm*)
+  install(FILES
+    ${OF_LIB_DIR}/libglfw.so
+    ${OF_LIB_DIR}/libglfw.so.3
+    ${OF_LIB_DIR}/libglfw.so.3.1
+    DESTINATION lib)
+endif()
