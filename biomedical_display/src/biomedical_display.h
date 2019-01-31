@@ -25,7 +25,7 @@ class biomedical_display : public ofBaseApp
     std::map<std::string, std::pair<std::string, float>> m_uniform_map;
 
   private:
-    std::vector<Oscilloscope> m_oscillos;
+    std::vector<std::shared_ptr<Oscilloscope>> m_oscillos;
     opp::oscquery_server m_server;
 
 #ifdef TARGET_RASPBERRY_PI

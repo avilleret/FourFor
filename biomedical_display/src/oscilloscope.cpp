@@ -47,7 +47,9 @@ Oscilloscope::Oscilloscope(const opp::node& root)
 
 void Oscilloscope::update()
 {
+  m_mutex.lock();
   m_buffer[m_index] = ofDefaultVertexType(m_index, m_value/2.+0.5, 0);
+  m_mutex.unlock();
   m_index = (m_index + 1) % m_buffer.size();
 }
 
