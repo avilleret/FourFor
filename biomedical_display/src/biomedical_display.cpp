@@ -16,6 +16,7 @@
 void biomedical_display::setup()
 {
   ofSetBackgroundColor(ofColor::black);
+  ofHideCursor();
   // ofSetLogLevel(ofLogLevel::OF_LOG_VERBOSE);
 
   m_server.setup("biomedical_display");

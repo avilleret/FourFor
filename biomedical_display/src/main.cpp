@@ -5,6 +5,7 @@ int main()
 #ifdef TARGET_RASPBERRY_PI
   ofGLESWindowSettings settings;
   settings.glesVersion = 2;
+  settings.setSize(1920,1080);
 #else
   ofGLWindowSettings settings;
   settings.setGLVersion(3,2);
