@@ -28,8 +28,9 @@ void biomedical_display::setup()
   }
 
   m_oscillos[0]->set_color(ofColor::green);
-  m_oscillos[1]->set_color(ofColor::blue);
-
+  m_oscillos[1]->set_color(ofColor::yellow);
+  m_oscillos[2]->set_color(ofColor::aqua);
+  
   m_shader.load("shaders/distorted TV.fs", 2);
 
   ofResizeEventArgs size(ofGetWidth(), ofGetHeight());
@@ -70,7 +71,8 @@ void biomedical_display::draw()
   {
     for(const auto& key : m_uniform_map)
       m_shader.setUniform1f(key.second.first, key.second.second);
-    m_fbo.draw(0.,0.);
+    int offset = ofGetWidth()-ofGetHeight()/m_oscillos.size();
+    m_fbo.draw(0.,0., offset, ofGetHeight());
   }
   m_shader.end();
   m_PALfbo.end();

@@ -7,3 +7,6 @@
 [submodule "ofxShadertoy"]
 	path = ofxShadertoy
 	url = https://github.com/tiagosr/ofxShadertoy
+[submodule "biomedical_display/ofxFatLines"]
+	path = biomedical_display/ofxFatLines
+	url = https://github.com/roymacdonald/ofxFatLines.git

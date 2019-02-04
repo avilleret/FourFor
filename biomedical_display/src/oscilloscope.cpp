@@ -1,12 +1,18 @@
 #include "oscilloscope.h"
+#include "ofxFatLine.h"
 
 Oscilloscope::Oscilloscope(const opp::node& root)
   : m_root(root)
 {
-  m_buffer.resize(1024);
+  unsigned long size = 1024;
+  m_buffer.resize(size);
+  m_colors.resize(size);
+  m_weights.resize(size);
   for(size_t i = 0; i < m_buffer.size(); i++)
   {
-    m_buffer[i] = ofDefaultVertexType(i, 0.5, 0.);
+    m_buffer[i] = ofDefaultVertexType(float(i)/m_buffer.size(), 0.5, 0.);
+    m_colors[i] = m_color;
+    m_weights[i] = m_line_width;
   }
 
   {
@@ -15,9 +21,9 @@ Oscilloscope::Oscilloscope(const opp::node& root)
     n.set_value(c);
     n.set_value_callback(
           [](void* context, const opp::value& v){
-      Oscilloscope* osc = (Oscilloscope*) context;
+      Oscilloscope* osc = static_cast<Oscilloscope*>(context);
       auto vec = v.to_vec4f();
-      osc->set_color(ofColor(vec[1],vec[2],vec[3],vec[0]));
+      osc->set_color(ofFloatColor(vec[1],vec[2],vec[3],vec[0]));
     }, this);
   }
 
@@ -43,30 +49,68 @@ Oscilloscope::Oscilloscope(const opp::node& root)
     }, this);
   }
 
+  {
+    auto n = m_root.create_float("line_width");
+    n.set_value(1.);
+    n.set_value_callback(
+          [](void* context, const opp::value& v){
+      Oscilloscope* osc = (Oscilloscope*) context;
+      float f = v.to_float();
+      osc->m_line_width = f;
+      osc->m_line_width_changed=true;
+    }, this);
+  }
+
 }
 
 void Oscilloscope::update()
 {
-  m_mutex.lock();
-  m_buffer[m_index] = ofDefaultVertexType(m_index, m_value/2.+0.5, 0);
-  m_mutex.unlock();
+  if(m_line_width_changed)
+  {
+    for(auto& w : m_weights)
+    {
+      w = static_cast<double>(m_line_width);
+    }
+    m_line_width_changed = false;
+  }
+  m_buffer[m_index] = ofDefaultVertexType(static_cast<float>(m_index)/m_buffer.size(), static_cast<double>(m_value)/2.+0.5, 0);
   m_index = (m_index + 1) % m_buffer.size();
 }
 
 void Oscilloscope::draw(float x, float y, float w, float h)
 {
+  ofPushStyle();
   ofPushMatrix();
   ofTranslate(x,y);
-  ofScale(float(w)/float(m_buffer.size()),h);
+  ofVec2f scale(w-h,h);
+  //ofScale(float(w-h)/float(m_buffer.size()),h);
 
-  ofPushStyle();
+  // line.setFeather(2.);
+  std::vector<ofDefaultVec3> scaled_buffer;
+  scaled_buffer.reserve(m_buffer.size());
+  //ofLogNotice() << "start";
+  for(auto d : m_buffer)
+  {
+    ofDefaultVec3 pt;
+    pt.x = d.x * scale.x;
+    pt.y = d.y * scale.y;
+    //ofLogNotice() << pt;
+    scaled_buffer.push_back(pt);
+  }
+  //ofLogNotice() << "end";
+  m_mutex.lock();
+  ofxFatLine line(scaled_buffer, m_colors, m_weights);
   ofSetColor(m_color);
-  ofSetLineWidth(m_line_width);
-
-  ofPolyline line(m_buffer);
+  m_mutex.unlock();
   line.setClosed(false);
   line.draw();
 
-  ofPopStyle();
   ofPopMatrix();
+
+  ofPushMatrix();
+  ofTranslate(w-h,y);
+  ofDrawBitmapString("60", 20, 20, 0);
+
+  ofPopMatrix();
+  ofPopStyle();
 }
