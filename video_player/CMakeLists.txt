@@ -13,10 +13,15 @@ if(TARGET_ARCH MATCHES arm*)
       src/video_player.cpp
   )
 
+  set(HEADERS
+    src/video_player.h
+  )
+
   add_executable(
       ${PROJECT_NAME}
       MACOSX_BUNDLE
       ${SOURCES}
+      ${HEADERS}
       ${OFXADDONS_SOURCES}
   )
 

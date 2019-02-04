@@ -13,10 +13,16 @@ set(SOURCES
     src/oscilloscope.cpp
 )
 
+set(HEADERS
+    src/biomedical_display.h
+    src/oscilloscope.h
+)
+
 add_executable(
     ${PROJECT_NAME}
     MACOSX_BUNDLE
     ${SOURCES}
+    ${HEADERS}
     ${OFXADDONS_SOURCES}
 )
 
