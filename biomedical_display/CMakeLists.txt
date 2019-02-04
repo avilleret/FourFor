@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 3.10)
 include(${OF_ROOT}/openFrameworks.cmake)
 
 ofxaddon(ofxShadertoy)
+ofxaddon(ofxFatLines)
 
 set(SOURCES
     src/main.cpp
@@ -32,19 +33,3 @@ target_link_libraries(
 )
 
 ofSetTargetProperties()
-
-install(TARGETS ${PROJECT_NAME}
-  RUNTIME DESTINATION .
-  LIBRARY DESTINATION lib)
-
-install(FILES
-  ${OF_LIB_DIR}/libopenFrameworks.so
-  DESTINATION lib)
-
-if(NOT TARGET_ARCH MATCHES arm*)
-  install(FILES
-    ${OF_LIB_DIR}/libglfw.so
-    ${OF_LIB_DIR}/libglfw.so.3
-    ${OF_LIB_DIR}/libglfw.so.3.1
-    DESTINATION lib)
-endif()
