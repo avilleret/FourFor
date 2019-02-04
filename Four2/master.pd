@@ -1,18 +1,23 @@
-#N canvas 500 170 450 300 10;
-#X obj 68 117 timer;
-#X obj 67 16 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#N canvas 322 304 450 300 10;
+#X obj 68 177 timer;
+#X obj 49 36 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 95 77 1;
-#X obj 68 146 / 1000;
-#X floatatom 68 169 5 0 0 0 - - -;
-#X obj 95 97 metro 100;
-#X obj 67 36 t b b b;
-#X obj 160 64 s init;
-#X connect 0 0 3 0;
-#X connect 1 0 6 0;
-#X connect 2 0 5 0;
-#X connect 3 0 4 0;
-#X connect 5 0 0 1;
-#X connect 6 0 2 0;
-#X connect 6 1 0 0;
-#X connect 6 2 7 0;
+#X obj 68 206 / 1000;
+#X floatatom 68 229 5 0 0 0 - - -;
+#X obj 95 137 metro 100;
+#X obj 88 88 s init;
+#X obj 278 67 soprano;
+#X obj 278 145 basse;
+#X obj 278 93 alto;
+#X obj 278 119 tenor;
+#X obj 104 31 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 49 56 t f b b;
+#X connect 0 0 2 0;
+#X connect 1 0 11 0;
+#X connect 2 0 3 0;
+#X connect 4 0 0 1;
+#X connect 10 0 11 0;
+#X connect 11 0 4 0;
+#X connect 11 1 0 0;
+#X connect 11 2 5 0;
