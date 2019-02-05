@@ -1,5 +1,8 @@
 # FourFor
+
 Software for FourFor show
+
+# Compilation
 
     export PATH=/opt/cross-pi-gcc/bin:$PATH
     mkdir -p build-rpi
@@ -8,5 +11,10 @@ Software for FourFor show
     ninja
     ninja install
 
+# Synchronize install folder with RPi
 
-    rsync -hvrPtl  FourFor/ pi@raspberrypi.local:~/FourFor
+    ninja install && rsync -hvrPtl  FourFor/ pi@raspberrypi.local:~/FourFor
+
+
+# Transcode video for Raspberry Pi
+    ffmpeg -i ${file} -vcodec libx264 -profile:v high -preset fast -crf 18 -b-pyramid none -vf scale=-1:720 -acodec ac3 -ab 1536k -scodec copy encoded/${file}
