@@ -6,7 +6,7 @@
 	url = https://github.com/avilleret/ofxOMXPlayer.git
 [submodule "ofxShadertoy"]
 	path = ofxShadertoy
-	url = https://github.com/tiagosr/ofxShadertoy
+	url = https://github.com/avilleret/ofxShadertoy
 [submodule "biomedical_display/ofxFatLines"]
 	path = biomedical_display/ofxFatLines
-	url = https://github.com/roymacdonald/ofxFatLines.git
+	url = https://github.com/avilleret/ofxFatLines.git
