@@ -41,4 +41,6 @@ add_custom_target(shaders SOURCES ${SHADERS_SRC})
 install(
   DIRECTORY
   "${CMAKE_CURRENT_LIST_DIR}/shaders"
+  "${CMAKE_CURRENT_LIST_DIR}/videos"
+  "${CMAKE_CURRENT_LIST_DIR}/images"
   DESTINATION data)

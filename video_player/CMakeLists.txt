@@ -14,6 +14,8 @@ if(TARGET_ARCH MATCHES arm*)
 
   set(HEADERS
     src/video_player.h
+    src/SafeImage.h
+    src/SafePlayer.h
   )
 
   add_executable(
