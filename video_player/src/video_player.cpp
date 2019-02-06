@@ -1,12 +1,17 @@
 #include "video_player.h"
 
+video_player::video_player()
+  : m_server("video_player", 1236, 5680),
+    m_clock(m_server.get_root_node().create_void("clock"))
+{
+
+}
+
 void video_player::setup()
 {
   ofHideCursor();
   ofClear(ofColor::black);
   ofSetColor(ofColor::white);
-
-  m_server.setup("video_player", 1236, 5680);
 
   {
     auto root = m_server.get_root_node().create_void("video");
@@ -144,6 +149,8 @@ void video_player::draw()
   for(int i = 0; i<NUM_IMG; i++)
     if(m_images[i].isAllocated())
       m_images[i].draw_safe();
+
+  m_clock.draw();
 
   // m_player.draw_safe();
 }

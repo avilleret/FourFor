@@ -8,14 +8,16 @@ if(TARGET_ARCH MATCHES arm*)
   ofxaddon(ofxOMXPlayer)
 
   set(SOURCES
-      src/main.cpp
-      src/video_player.cpp
+    src/main.cpp
+    src/video_player.cpp
+    src/OssiaText.cpp
   )
 
   set(HEADERS
     src/video_player.h
     src/SafeImage.h
     src/SafePlayer.h
+    src/OssiaText.h
   )
 
   add_executable(
