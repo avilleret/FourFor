@@ -3,11 +3,13 @@
 #include "ofMain.h"
 #include "oscilloscope.h"
 #include "ofxShadertoy.h"
-#include <ossia-cpp/ossia-cpp98.hpp>  
+#include <ossia-cpp/ossia-cpp98.hpp>
+#include "OssiaText.h"
 
 class biomedical_display : public ofBaseApp
 {
   public:
+    biomedical_display();
     void setup  ();
     void update ();
     void draw   ();
@@ -37,6 +39,8 @@ class biomedical_display : public ofBaseApp
 
    ofFbo m_fbo;
    ofFbo m_PALfbo;
+
+   OssiaText m_label;
 
    ofVec2f render_size;
 };

@@ -13,13 +13,19 @@
   n.set_value(0); \
 }
 
+biomedical_display::biomedical_display()
+  : m_server("biomedical_display", 1234, 5678)
+  , m_label(m_server.get_root_node().create_void("label"))
+{
+
+}
+
 void biomedical_display::setup()
 {
   ofSetBackgroundColor(ofColor::black);
   ofHideCursor();
   // ofSetLogLevel(ofLogLevel::OF_LOG_VERBOSE);
 
-  m_server.setup("biomedical_display");
   auto root = m_server.get_root_node();
 
   for(int i=0; i<3; i++)
@@ -42,6 +48,8 @@ void biomedical_display::setup()
   UNIFORM_NODE("scan_line", "scalinesOpt")
   UNIFORM_NODE("rgb_offset", "rgbOffsetOpt")
   UNIFORM_NODE("horizontal_fuzz", "horzFuzzOpt")
+
+  m_label.set_text("MORTON FELDMAN");
 }
 
 void biomedical_display::update()
@@ -63,6 +71,7 @@ void biomedical_display::draw()
     osc->draw(0.,float(i)/m_oscillos.size()*render_size.y,
              render_size.x,float(render_size.y)/m_oscillos.size());
     i++;
+    m_label.draw();
   }
   m_fbo.end();
 

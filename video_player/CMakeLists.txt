@@ -3,6 +3,7 @@ project(video_player)
 cmake_minimum_required(VERSION 3.10)
 
 include(${OF_ROOT}/openFrameworks.cmake)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../common/src)
 
 if(TARGET_ARCH MATCHES arm*)
   ofxaddon(ofxOMXPlayer)
@@ -10,14 +11,14 @@ if(TARGET_ARCH MATCHES arm*)
   set(SOURCES
     src/main.cpp
     src/video_player.cpp
-    src/OssiaText.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.cpp
   )
 
   set(HEADERS
     src/video_player.h
     src/SafeImage.h
     src/SafePlayer.h
-    src/OssiaText.h
+    ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.h
   )
 
   add_executable(

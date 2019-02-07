@@ -1,8 +1,8 @@
 #include "video_player.h"
 
 video_player::video_player()
-  : m_server("video_player", 1236, 5680),
-    m_clock(m_server.get_root_node().create_void("clock"))
+  : m_server("video_player", 1236, 5680)
+  , m_clock(m_server.get_root_node().create_void("clock"))
 {
 
 }

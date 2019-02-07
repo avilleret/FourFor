@@ -7,15 +7,19 @@ include(${OF_ROOT}/openFrameworks.cmake)
 ofxaddon(ofxShadertoy)
 ofxaddon(ofxFatLines)
 
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../common/src)
+
 set(SOURCES
     src/main.cpp
     src/biomedical_display.cpp
     src/oscilloscope.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.cpp
 )
 
 set(HEADERS
     src/biomedical_display.h
     src/oscilloscope.h
+    ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.h
 )
 
 add_executable(
