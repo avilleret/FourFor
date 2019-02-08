@@ -144,7 +144,10 @@ void video_player::setup()
   m_player.loadMovie("/home/pi/big_buck_bunny_720p_h264.mov");
 
   if(!m_shader.load("shaders/feedback"))
+  {
+    ofLogError("FourFor") << "Can't link shader, abord";
     ofExit();
+  }
 
   init_fbo(m_draw_fbo);
   init_fbo(m_prev);
@@ -185,8 +188,10 @@ void video_player::draw()
   m_shader.setUniform1f("freq", 2.0);
   m_shader.setUniform1f("amplitude", 1.0);
   m_shader.setUniform2f("resolution", ofGetWidth(), ofGetHeight());
-  float alpha = 0.9;
+  float alpha = 0.9f;
   m_shader.setUniform1f("alpha", alpha);
+  m_shader.setUniform1f("beta", .6f);
+  m_shader.setUniform2f("anchor", 1.f, 1.f);
   m_draw_fbo.draw(0.,0., m_curr.getWidth(), m_curr.getHeight());
   m_shader.end();
   m_curr.end();

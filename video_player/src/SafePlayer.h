@@ -6,30 +6,30 @@
 struct SafePlayer : public ofxOMXPlayer,
     public std::mutex
 {
-  void draw_safe()
+  void draw_safe(int targetWidth, int targetHeight)
   {
     if(m_enable)
     {
       lock();
-      int w = getWidth();
-      int h = getHeight();
+      float w = getWidth();
+      float h = getHeight();
 
-      int draw_w;
-      int draw_h;
+      float draw_w;
+      float draw_h;
 
-      if(float(w)/float(h) > 1.)
+      if(w/h > 1.f)
       {
-        draw_w = ofGetWidth();
-        draw_h = float(h)/float(w) * draw_w;
+        draw_w = targetWidth;
+        draw_h = h * draw_w/w;
       }
       else
       {
-        draw_h = ofGetHeight();
-        draw_w = float(w*ofGetHeight())/ofGetWidth();
+        draw_h = targetHeight;
+        draw_w = w * draw_h/h;
       }
       ofxOMXPlayer::draw(0, 0, draw_w, draw_h);
       unlock();
     }
   }
-  std::atomic<bool> m_enable{false};
+  std::atomic<bool> m_enable{true};
 };
