@@ -24,7 +24,9 @@ uniform float       time;
 
 uniform float freq;
 uniform float amplitude;
-uniform float alpha;
+uniform float alpha; // temporal feedback amount
+uniform float beta; // scaling factor
+uniform vec2 anchor; // scaling anchor
 
 
 //Each shader has one main() function you can use
@@ -75,7 +77,9 @@ void main()
     mediump float colorA = texture2D( tex0, texCoordBlue).a;
     mediump vec4 outColor = vec4( colorR, colorG, colorB, colorA);
 
-    outColor = ((1.-alpha) * outColor + alpha*texture2D(tex1, texcoord0+vec2(10.,10.)/resolution));
+    mediump vec2 ghost_coord = texcoord0 + (beta-1.)*anchor;
+
+    outColor = ((1.-alpha) * outColor + alpha*texture2D(tex1, ghost_coord));
 
     gl_FragColor = outColor;
 }
