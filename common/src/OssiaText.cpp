@@ -32,6 +32,16 @@ OssiaText::OssiaText(const opp::node& root) :
     }, this);
     n.set_value(1.);
   }
+  {
+    auto n = m_root.create_argb("color");
+    n.set_value_callback([](void* ctx, const opp::value& v)
+    {
+      OssiaText* ptr = static_cast<OssiaText*>(ctx);
+      auto c = v.to_vec4f();
+      ptr->set_color(ofFloatColor(c[1],c[2],c[3],c[0]));
+    }, this);
+    n.set_value(1.);
+  }
 }
 
 void OssiaText::set_text(const std::string& s)
@@ -45,11 +55,14 @@ void OssiaText::set_text(const std::string& s)
 
 void OssiaText::draw()
 {
+  ofPushStyle();
   ofPushMatrix();
   lock();
+  ofSetColor(m_color);
   ofTranslate(m_position.x, m_position.y);
   ofScale(m_scale,m_scale);
   drawString(m_text, m_center.x, m_center.y);
   unlock();
   ofPopMatrix();
+  ofPopStyle();
 }
