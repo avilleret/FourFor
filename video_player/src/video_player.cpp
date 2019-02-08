@@ -2,9 +2,9 @@
 
 video_player::video_player()
   : m_server("video_player", 1236, 5680)
+  , m_ecg(m_server.get_root_node().create_void("ecg"))
   , m_clock(m_server.get_root_node().create_void("clock"))
 {
-
 }
 
 void init_fbo(ofFbo& fbo)
@@ -22,6 +22,7 @@ void video_player::setup()
   ofClear(ofColor::black);
   ofSetColor(ofColor::white);
 
+#if TARGET_RASPBERRY_PI
   {
     auto root = m_server.get_root_node().create_void("video");
 
@@ -73,6 +74,7 @@ void video_player::setup()
       }, &m_player);
     }
   }
+#endif
 
   {
     for(int i=0; i<NUM_IMG; i++)
@@ -140,8 +142,10 @@ void video_player::setup()
   n.set_value("sop3.png");
   */
 
+#if TARGET_RASPBERRY_PI
   m_player.setVolume(0.);
   m_player.loadMovie("/home/pi/big_buck_bunny_720p_h264.mov");
+#endif
 
   if(!m_shader.load("shaders/feedback"))
   {
@@ -164,19 +168,25 @@ void video_player::update()
       m_images[i].update();
       m_images[i].changed = false;
     }
+
+  m_ecg.update();
 }
 
 void video_player::draw()
 {
   ofClear(0);
   m_draw_fbo.begin();
+
+#if TARGET_RASPBERRY_PI
   if(m_player.isPlaying())
     m_player.draw_safe(m_draw_fbo.getWidth(), m_draw_fbo.getHeight());
+#endif
 
   for(int i = 0; i<NUM_IMG; i++)
     if(m_images[i].isAllocated())
       m_images[i].draw_safe();
 
+  m_ecg.draw(0,0,m_draw_fbo.getWidth(), m_draw_fbo.getHeight());
   m_clock.draw();
   m_draw_fbo.end();
 

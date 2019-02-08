@@ -7,10 +7,13 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/../common/src)
 
 if(TARGET_ARCH MATCHES arm*)
   ofxaddon(ofxOMXPlayer)
+  ofxaddon(ofxFatLines)
 
   set(SOURCES
     src/main.cpp
     src/video_player.cpp
+    src/biomedical_display.cpp
+    src/oscilloscope.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.cpp
   )
 
@@ -18,6 +21,8 @@ if(TARGET_ARCH MATCHES arm*)
     src/video_player.h
     src/SafeImage.h
     src/SafePlayer.h
+    src/biomedical_display.h
+    src/oscilloscope.h
     ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.h
   )
 
