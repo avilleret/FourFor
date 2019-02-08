@@ -7,6 +7,15 @@ video_player::video_player()
 
 }
 
+void init_fbo(ofFbo& fbo)
+{
+  fbo.allocate(1280, 720);
+
+  fbo.begin();
+  ofClear(0);
+  fbo.end();
+}
+
 void video_player::setup()
 {
   ofHideCursor();
@@ -116,9 +125,11 @@ void video_player::setup()
       }
     }
   }
-  auto n = m_server.get_root_node().find_child("image.0").find_child("load");
-  n.set_value("sop0.png");
+  auto n = m_server.get_root_node().find_child("image.0");
+  n.find_child("load").set_value("sop1.png");
+  n.find_child("scale").set_value(0.2);
 
+  /*
   n = m_server.get_root_node().find_child("image.1").find_child("load");
   n.set_value("sop1.png");
 
@@ -127,7 +138,17 @@ void video_player::setup()
 
   n = m_server.get_root_node().find_child("image.3").find_child("load");
   n.set_value("sop3.png");
+  */
 
+  m_player.setVolume(0.);
+  m_player.loadMovie("/home/pi/big_buck_bunny_720p_h264.mov");
+
+  if(!m_shader.load("shaders/feedback"))
+    ofExit();
+
+  init_fbo(m_draw_fbo);
+  init_fbo(m_prev);
+  init_fbo(m_curr);
 }
 
 void video_player::update()
@@ -145,14 +166,35 @@ void video_player::update()
 void video_player::draw()
 {
   ofClear(0);
+  m_draw_fbo.begin();
+  if(m_player.isPlaying())
+    m_player.draw_safe(m_draw_fbo.getWidth(), m_draw_fbo.getHeight());
 
   for(int i = 0; i<NUM_IMG; i++)
     if(m_images[i].isAllocated())
       m_images[i].draw_safe();
 
   m_clock.draw();
+  m_draw_fbo.end();
 
-  // m_player.draw_safe();
+  m_curr.begin();
+  m_shader.begin();
+  m_shader.setUniformTexture("tex0", m_draw_fbo.getTexture(), m_draw_fbo.getTexture().getTextureData().textureID);
+  m_shader.setUniformTexture("tex1", m_prev.getTexture(), m_prev.getTexture().getTextureData().textureID);
+  m_shader.setUniform1f("time", ofGetElapsedTimef());
+  m_shader.setUniform1f("freq", 2.0);
+  m_shader.setUniform1f("amplitude", 1.0);
+  m_shader.setUniform2f("resolution", ofGetWidth(), ofGetHeight());
+  float alpha = 0.9;
+  m_shader.setUniform1f("alpha", alpha);
+  m_draw_fbo.draw(0.,0., m_curr.getWidth(), m_curr.getHeight());
+  m_shader.end();
+  m_curr.end();
+
+  m_curr.draw(0,0,ofGetWidth(), ofGetHeight());
+
+
+  swap(m_curr, m_prev);
 }
 
 void video_player::exit()

@@ -24,6 +24,8 @@ class video_player : public ofBaseApp
     safe_image m_images[NUM_IMG];
     SafePlayer m_player;
     opp::oscquery_server m_server;
+    ofShader m_shader;
+    ofFbo m_draw_fbo, m_prev, m_curr;
 
     OssiaText m_clock;
 };
