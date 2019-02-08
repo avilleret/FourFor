@@ -17,12 +17,7 @@ class biomedical_display : public ofBaseApp
 
     void messageReceived (ofMessage&);
     void windowResized   (ofResizeEventArgs&);
-#ifdef TARGET_RASPBERRY_PI
-    ofShader&
-#else
-    ofxShadertoy&
-#endif
-      get_shader() { return m_shader; }
+    ofShader& get_shader() { return m_shader; }
 
     std::map<std::string, std::pair<std::string, float>> m_uniform_map;
 
@@ -30,12 +25,7 @@ class biomedical_display : public ofBaseApp
     std::vector<std::shared_ptr<Oscilloscope>> m_oscillos;
     opp::oscquery_server m_server;
 
-#ifdef TARGET_RASPBERRY_PI
-    ofShader
-#else
-    ofxShadertoy
-#endif
-      m_shader;
+    ofShader m_shader;
 
    ofFbo m_fbo;
    ofFbo m_PALfbo;

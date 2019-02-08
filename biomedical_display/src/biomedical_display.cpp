@@ -36,8 +36,9 @@ void biomedical_display::setup()
   m_oscillos[0]->set_color(ofColor::green);
   m_oscillos[1]->set_color(ofColor::yellow);
   m_oscillos[2]->set_color(ofColor::aqua);
-  
-  m_shader.load("shaders/distorted TV.fs", 2);
+
+  ofDisableArbTex();
+  m_shader.load("shaders/distorted TV");
 
   ofResizeEventArgs size(ofGetWidth(), ofGetHeight());
   windowResized(size);
@@ -49,6 +50,10 @@ void biomedical_display::setup()
   UNIFORM_NODE("rgb_offset", "rgbOffsetOpt")
   UNIFORM_NODE("horizontal_fuzz", "horzFuzzOpt")
 
+  m_label.loadFont("verdana.ttf", 24);
+  m_label.set_color(ofFloatColor::aqua);
+  m_label.set_scale(0.5);
+  m_label.set_position(ofVec2f(20., 20.));
   m_label.set_text("MORTON FELDMAN");
 }
 
@@ -56,13 +61,14 @@ void biomedical_display::update()
 {
   for(auto& osc : m_oscillos)
   {
-    //osc.set_value(ofRandomf());
+    // osc->set_value(ofRandomf());
     osc->update();
   }
 }
 
 void biomedical_display::draw()
 {
+  ofLogNotice() << "draw";
   m_fbo.begin();
   ofClear(ofColor::black);
   int i=0;
@@ -76,12 +82,18 @@ void biomedical_display::draw()
   m_fbo.end();
 
   m_PALfbo.begin();
-  m_shader.begin();
+  m_shader.begin();  
+  m_shader.setUniform1f("iGlobalTime", ofGetElapsedTimef());
+  m_shader.setUniform1f("iTime", ofGetElapsedTimef());
+  m_shader.setUniform3f("iResolution", ofGetWidth(), ofGetHeight(), 4.0f);
+
+  m_shader.setUniform4f("iDate", ofGetYear(), ofGetMonth(), ofGetDay(), ((ofGetHours()*60+ofGetMinutes())*60)+ofGetSeconds());
+  m_shader.setUniformTexture("iChannel0", m_fbo.getTexture(), m_fbo.getTexture().texData.textureID );
   {
     for(const auto& key : m_uniform_map)
       m_shader.setUniform1f(key.second.first, key.second.second);
-    int offset = ofGetWidth()-ofGetHeight()/m_oscillos.size();
-    m_fbo.draw(0.,0., offset, ofGetHeight());
+    int offset = m_PALfbo.getWidth()-m_PALfbo.getHeight()/m_oscillos.size();
+    m_fbo.draw(0.,0., offset, m_PALfbo.getHeight());
   }
   m_shader.end();
   m_PALfbo.end();
@@ -111,7 +123,7 @@ void biomedical_display::windowResized   (ofResizeEventArgs& args)
   m_PALfbo.begin();
   ofClear(ofColor::black);
   m_PALfbo.end();
-  m_shader.setDimensions(args.width, args.height);
-  m_shader.setTexture(0,m_fbo);
+
+  m_shader.setUniformTexture("tex0", m_fbo.getTexture(),m_fbo.getTexture().texData.textureID);
 }
 
