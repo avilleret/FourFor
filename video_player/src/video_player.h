@@ -2,7 +2,9 @@
 
 #include "ofMain.h"
 #include <ossia-cpp/ossia-cpp98.hpp>
+#ifdef TARGET_RASPBERRY_PI
 #include "SafePlayer.h"
+#endif
 #include "SafeImage.h"
 #include "OssiaText.h"
 #include "biomedical_display.h"

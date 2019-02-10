@@ -5,6 +5,7 @@ video_player::video_player()
   , m_ecg(m_server.get_root_node().create_void("ecg"))
   , m_clock(m_server.get_root_node().create_void("clock"))
 {
+
 }
 
 void init_fbo(ofFbo& fbo)
@@ -198,16 +199,15 @@ void video_player::draw()
   m_shader.setUniform1f("freq", 2.0);
   m_shader.setUniform1f("amplitude", 1.0);
   m_shader.setUniform2f("resolution", ofGetWidth(), ofGetHeight());
-  float alpha = 0.9f;
+  float alpha = 0.f;
   m_shader.setUniform1f("alpha", alpha);
-  m_shader.setUniform1f("beta", .6f);
-  m_shader.setUniform2f("anchor", 1.f, 1.f);
+  m_shader.setUniform1f("beta", .9f);
+  m_shader.setUniform2f("anchor", .5f, .5f);
   m_draw_fbo.draw(0.,0., m_curr.getWidth(), m_curr.getHeight());
   m_shader.end();
   m_curr.end();
 
   m_curr.draw(0,0,ofGetWidth(), ofGetHeight());
-
 
   swap(m_curr, m_prev);
 }

@@ -7,6 +7,7 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/../common/src)
 
 if(TARGET_ARCH MATCHES arm*)
   ofxaddon(ofxOMXPlayer)
+endif()
   ofxaddon(ofxFatLines)
 
   set(SOURCES
@@ -38,14 +39,18 @@ if(TARGET_ARCH MATCHES arm*)
       ${PROJECT_NAME}
       ${OPENFRAMEWORKS_LIBRARIES}
       ossia
+  )
+if(TARGET_ARCH MATCHES arm*)
+  target_link_libraries(
+      ${PROJECT_NAME}
       pcre
       libilclient.a
       libvcilcs.a
-  )
+      )
+endif()
 
   ofSetTargetProperties()
 
   install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION .
     LIBRARY DESTINATION lib)
-endif()

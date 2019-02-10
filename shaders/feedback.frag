@@ -1,4 +1,4 @@
-precision highp float; // this will make the default precision high
+// precision highp float; // this will make the default precision high
 
 //we passed this in from our vert shader
 varying vec2        texcoord0;
@@ -57,27 +57,27 @@ uniform vec2 anchor; // scaling anchor
 // let's wobble the image channels around independently, a bit Fear and Loathing in Las Vegas style
 void main()
 {
-    mediump float newTime = time * freq;
+    float newTime = time * freq;
 
     vec2 newTexCoord = texcoord0;
     //newTexCoord.s = texcoord0.s + (cos(newTime + (texcoord0.s*20.0)) * 0.01);
     //newTexCoord.t = texcoord0.t + (sin(newTime + (texcoord0.t*20.0)) * 0.01);
 
-    mediump vec2 texCoordRed    = newTexCoord;
-    mediump vec2 texCoordGreen  = newTexCoord;
-    mediump vec2 texCoordBlue   = newTexCoord;
+    vec2 texCoordRed    = newTexCoord;
+    vec2 texCoordGreen  = newTexCoord;
+    vec2 texCoordBlue   = newTexCoord;
 
     texCoordRed     += vec2( cos((newTime * 2.76)), sin((newTime * 2.12)) )* 0.01 * amplitude;
     texCoordGreen   += vec2( cos((newTime * 2.23)), sin((newTime * 2.40)) )* 0.01 * amplitude;
     texCoordBlue    += vec2( cos((newTime * 2.98)), sin((newTime * 2.82)) )* 0.01 * amplitude;
 
-    mediump float colorR = texture2D( tex0, texCoordRed ).r;
-    mediump float colorG = texture2D( tex0, texCoordGreen).g;
-    mediump float colorB = texture2D( tex0, texCoordBlue).b;  
-    mediump float colorA = texture2D( tex0, texCoordBlue).a;
-    mediump vec4 outColor = vec4( colorR, colorG, colorB, colorA);
+    float colorR = texture2D( tex0, texCoordRed ).r;
+    float colorG = texture2D( tex0, texCoordGreen).g;
+    float colorB = texture2D( tex0, texCoordBlue).b;
+    float colorA = texture2D( tex0, texCoordBlue).a;
+    vec4 outColor = vec4( colorR, colorG, colorB, colorA);
 
-    mediump vec2 ghost_coord = texcoord0 + (beta-1.)*anchor;
+    vec2 ghost_coord = texcoord0 + (beta-1.)*anchor;
 
     outColor = ((1.-alpha) * outColor + alpha*texture2D(tex1, ghost_coord));
 
