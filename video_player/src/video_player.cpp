@@ -5,7 +5,21 @@ video_player::video_player()
   , m_ecg(m_server.get_root_node().create_void("ecg"))
   , m_clock(m_server.get_root_node().create_void("clock"))
 {
-
+  string hostname;
+  string filepath("/etc/hostname");
+  ifstream file (filepath);
+  if (file.is_open())
+  {
+    if ( getline (file,hostname) )
+    {
+      ofLogNotice() << "hostname : " << hostname;
+      m_server.setup(hostname, 1236, 5680);
+    }
+    else {
+      ofLogError() << "can't read " << filepath;
+    }
+    file.close();
+  }
 }
 
 void init_fbo(ofFbo& fbo)
