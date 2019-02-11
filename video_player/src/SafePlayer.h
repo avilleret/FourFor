@@ -10,6 +10,8 @@ struct SafePlayer : public ofxOMXPlayer,
   {
     if(m_enable)
     {
+      ofPushStyle();
+
       lock();
       float w = getWidth();
       float h = getHeight();
@@ -27,9 +29,13 @@ struct SafePlayer : public ofxOMXPlayer,
         draw_h = targetHeight;
         draw_w = w * draw_h/h;
       }
+      ofSetColor(m_color);
       ofxOMXPlayer::draw(0, 0, draw_w, draw_h);
       unlock();
+
+      ofPopStyle();
     }
   }
   std::atomic<bool> m_enable{true};
+  ofFloatColor m_color{ofColor::white};
 };

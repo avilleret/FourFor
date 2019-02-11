@@ -50,6 +50,7 @@ void video_player::setup()
         vp->start();
         vp->unlock();
       }, &m_player);
+      n.set_value("../../../big_buck_bunny_720p_h264.mov");
     }
     {
       auto n = root.create_float("volume");
@@ -73,6 +74,17 @@ void video_player::setup()
         auto b = v.to_bool();
         vp->m_enable = b;
       }, &m_player);
+      n.set_value(true);
+    }
+    {
+      auto n = root.create_rgba("color");
+      n.set_value_callback(
+            [](void* context, const opp::value& v){
+        SafePlayer* vp = static_cast<SafePlayer*>(context);
+        auto vec = v.to_vec4f();
+        vp->m_color = ofFloatColor(vec[1], vec[2], vec[3], vec[0]);
+      }, &m_player);
+      n.set_value(opp::value::vec4f{1.,1,1.,1.});
     }
   }
 #endif
@@ -145,7 +157,6 @@ void video_player::setup()
 
 #if TARGET_RASPBERRY_PI
   m_player.setVolume(0.);
-  m_player.loadMovie("/home/pi/big_buck_bunny_720p_h264.mov");
 #endif
 
   if(!m_shader.load("shaders/feedback"))
