@@ -1,4 +1,4 @@
-#N canvas -71 123 1439 687 10;
+#N canvas 0 91 1280 687 10;
 #X obj 21 134 moses;
 #X obj 48 65 r init;
 #X obj 141 134 moses;
@@ -120,6 +120,7 @@
 #X obj 775 457 player basse/F2-heu;
 #X obj 915 457 player basse/E3-G;
 #X obj 1055 457 player basse/C4;
+#X obj 554 549 outlet~;
 #X connect 0 0 93 0;
 #X connect 0 1 2 0;
 #X connect 1 0 28 0;
@@ -223,8 +224,14 @@
 #X connect 107 0 115 0;
 #X connect 107 1 108 0;
 #X connect 109 0 110 0;
+#X connect 110 0 121 0;
 #X connect 111 0 116 0;
 #X connect 112 0 117 0;
 #X connect 113 0 118 0;
 #X connect 114 0 119 0;
 #X connect 115 0 120 0;
+#X connect 116 0 121 0;
+#X connect 117 0 121 0;
+#X connect 118 0 121 0;
+#X connect 119 0 121 0;
+#X connect 120 0 121 0;

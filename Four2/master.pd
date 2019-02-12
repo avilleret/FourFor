@@ -1,4 +1,4 @@
-#N canvas 3202 976 700 475 10;
+#N canvas 400 211 700 475 10;
 #X obj 327 220 soprano;
 #X obj 507 220 basse;
 #X obj 387 220 alto;
@@ -37,7 +37,7 @@
 #X obj 414 89 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 56 241 ø.remote image.0/position;
-#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
 #X obj 29 100 del 100;
 #X obj 29 296 ø.remote clock/position;
@@ -98,7 +98,7 @@
 #X obj 236 78 fill_sample_list alto/E4;
 #X obj 236 102 fill_sample_list alto/Db4O;
 #X obj 236 126 fill_sample_list alto/Db4G;
-#X restore 448 410 pd make_sample_list;
+#X restore 246 413 pd make_sample_list;
 #N canvas 57 596 450 300 control 0;
 #X obj 114 84 image_view image.1;
 #X obj 114 64 image_view image.0;
@@ -136,18 +136,18 @@
 #X obj 387 242 img alto;
 #X obj 507 242 img basse;
 #X obj 447 242 img tenor;
-#N canvas 3367 2129 450 300 device 1;
+#N canvas 830 478 450 300 device 0;
 #X obj 160 47 loadbang;
-#X msg 160 70 expose oscquery 1236 5681;
 #X obj 160 138 print;
 #X msg 78 53 namespace;
 #X msg 59 78 address;
 #X obj 160 108 ø.device Four2;
-#X connect 0 0 1 0;
-#X connect 1 0 5 0;
-#X connect 3 0 5 0;
-#X connect 4 0 5 0;
-#X connect 5 0 2 0;
+#X msg 160 70 expose oscquery 1236 5680;
+#X connect 0 0 5 0;
+#X connect 2 0 4 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 5 0 4 0;
 #X restore 411 179 pd device;
 #X msg 324 154 namespace;
 #X obj 484 64 ossia;
@@ -188,14 +188,14 @@
 #X connect 13 0 9 1;
 #X connect 14 0 6 0;
 #X restore 61 314 pd make_symbol;
-#N canvas 2557 999 470 540 clock 1;
+#N canvas 810 238 470 540 clock 1;
 #X obj 119 305 timer;
 #X obj 100 204 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 119 372 / 1000;
 #X floatatom 119 395 5 0 0 0 - - -;
 #X obj 100 249 metro 100;
-#X obj 210 217 s init;
+#X obj 210 247 s init;
 #X obj 100 224 t f b b;
 #X obj 119 418 s clock;
 #X obj 181 396 < 420;
@@ -203,9 +203,9 @@
 #X obj 119 328 +;
 #X obj 119 350 f;
 #X obj 100 272 t b b;
-#X msg 162 307 0;
-#X msg 234 170 reset;
-#X obj 210 193 t b b;
+#X msg 182 287 0;
+#X msg 234 200 reset;
+#X obj 210 223 t b b;
 #X msg 239 411 get global_address;
 #X obj 100 28 inlet;
 #X obj 40 456 outlet;
@@ -216,6 +216,7 @@
 #X obj 210 145 ø.parameter Four2:/reset @type impulse;
 #X obj 126 85 ø.parameter Four2:/play @type bool;
 #X obj 151 458 ø.parameter Four2:/clock @unit s;
+#X obj 234 179 loadbang;
 #X connect 0 0 10 0;
 #X connect 1 0 6 0;
 #X connect 2 0 3 0;
@@ -233,7 +234,7 @@
 #X connect 11 0 2 0;
 #X connect 12 0 0 0;
 #X connect 12 1 0 1;
-#X connect 13 0 10 1;
+#X connect 13 0 11 0;
 #X connect 14 0 15 0;
 #X connect 15 0 5 0;
 #X connect 15 1 13 0;
@@ -246,20 +247,26 @@
 #X connect 23 0 15 0;
 #X connect 23 1 21 0;
 #X connect 24 0 6 0;
+#X connect 26 0 14 0;
 #X restore 61 289 pd clock;
 #X obj 61 257 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label 0'23" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 0'00" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 365 \; clock_label label \$1;
-#X connect 0 0 4 0;
-#X connect 1 0 21 0;
-#X connect 2 0 20 0;
-#X connect 3 0 22 0;
+#X obj 431 442 dac~ 1 2 3 4;
+#X connect 0 1 4 0;
+#X connect 1 1 21 0;
+#X connect 2 1 20 0;
+#X connect 3 1 22 0;
 #X connect 4 0 8 0;
 #X connect 5 0 7 0;
 #X connect 7 0 17 0;
 #X connect 9 0 7 0;
+#X connect 13 0 35 0;
+#X connect 14 0 35 1;
+#X connect 15 0 35 3;
+#X connect 16 0 35 2;
 #X connect 17 0 6 0;
 #X connect 17 0 9 0;
 #X connect 20 0 10 0;
