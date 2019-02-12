@@ -61,20 +61,40 @@ Oscilloscope::Oscilloscope(const opp::node& root)
     }, this);
   }
 
+  {
+    auto n = m_root.create_int("vbar_width");
+    n.set_min(0);
+    n.set_max(int(m_buffer.size()));
+    n.set_value(20);
+    n.set_value_callback(
+          [](void* context, const opp::value& v){
+      Oscilloscope* osc = (Oscilloscope*) context;
+      float f = v.to_float();
+      osc->m_vbar_width = f;
+      osc->m_line_width_changed=true;
+    }, this);
+  }
+
+  {
+    auto n = m_root.create_int("buffer_length");
+    n.set_min(0);
+    n.set_max(1024);
+    n.set_value(1024);
+    n.set_value_callback(
+          [](void* context, const opp::value& v){
+      Oscilloscope* osc = (Oscilloscope*) context;
+      int size = v.to_int();
+      osc->m_buffer.resize(size);
+      osc->m_colors.resize(size);
+      osc->m_weights.resize(size);
+      osc->m_line_width_changed=true;
+      osc->m_color_changed=true;
+    }, this);
+  }
 }
 
 void Oscilloscope::update()
 {
-  if(m_line_width_changed)
-  {
-    for(auto& w : m_weights)
-    {
-      w = static_cast<double>(m_line_width);
-    }
-    m_line_width_changed = false;
-  }
-  m_buffer[m_index] = ofDefaultVertexType(static_cast<float>(m_index)/m_buffer.size(), static_cast<double>(m_value)/2.+0.5, 0);
-  m_index = (m_index + 1) % m_buffer.size();
 }
 
 void Oscilloscope::draw(float x, float y, float w, float h)
@@ -99,6 +119,28 @@ void Oscilloscope::draw(float x, float y, float w, float h)
   }
   //ofLogNotice() << "end";
   m_mutex.lock();
+  if(m_line_width_changed)
+  {
+    for(auto& w : m_weights)
+    {
+      w = static_cast<double>(m_line_width);
+    }
+    m_line_width_changed = false;
+  }
+  if(m_color_changed)
+  {
+    for(size_t i = 0; i < m_buffer.size(); i++)
+    m_colors[i] = m_color;
+  }
+
+  m_buffer[m_index] = ofDefaultVertexType(static_cast<float>(m_index)/m_buffer.size(), static_cast<double>(m_value)/2.+0.5, 0);
+  m_colors[m_index] = m_color;
+  m_index = (m_index + 1) % m_buffer.size();
+
+  for(int i = 0; i<m_vbar_width; i++)
+  {
+    m_colors[(m_index + i + 1) % m_buffer.size()] = ofColor::black;
+  }
   ofxFatLine line(scaled_buffer, m_colors, m_weights);
   ofSetColor(m_color);
   m_mutex.unlock();

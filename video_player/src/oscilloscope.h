@@ -13,8 +13,7 @@ class Oscilloscope {
     void set_color(ofFloatColor c){
       m_mutex.lock();
       m_color=c;
-      for(size_t i = 0; i < m_buffer.size(); i++)
-        m_colors[i] = c;
+      m_color_changed=true;
       m_mutex.unlock();
     }
     void set_enabled(bool b){ m_enabled=b; }
@@ -34,7 +33,9 @@ class Oscilloscope {
     std::atomic<float> m_value{};
     std::atomic<float> m_line_width{1.};
     std::atomic<bool> m_line_width_changed;
+    std::atomic<bool> m_color_changed;
     std::mutex m_mutex{};
 
     opp::node m_root;
+    int m_vbar_width=20;
 };
