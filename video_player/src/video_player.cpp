@@ -253,9 +253,7 @@ void video_player::update()
 void video_player::draw()
 {
   m_draw_fbo.begin();
-  ofClear(0.,0.,0.,1.);
-  ofSetColor(ofColor::black);
-  ofRectangle(0.,0.,m_draw_fbo.getWidth(), m_draw_fbo.getHeight());
+  ofClear(0,0,0,255);
   ofSetColor(ofColor::white);
 
 #if OMXPLAYER
