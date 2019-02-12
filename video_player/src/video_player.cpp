@@ -1,4 +1,6 @@
 #include "video_player.h"
+#include <ossia/network/base/node.hpp>
+#include <ossia/network/base/parameter.hpp>
 
 video_player::video_player(const std::string& name)
   : m_server(name, 1236, 5680)
@@ -163,6 +165,71 @@ void video_player::setup()
     ofLogError("FourFor") << "Can't link shader, abord";
     ofExit();
   }
+  else
+  {
+    auto map = m_shader.getActiveUniforms();
+    auto n = m_server.get_root_node().create_void("shader");
+    for(const auto& p : map)
+    {
+      ofLogNotice() << "found uniform " << p.first << " type " << p.second;
+
+      opp::node node;
+      if(p.first == "modelViewProjectionMatrix"
+         || p.first == "tex1"
+         || p.first == "tex0"
+         || p.first == "resolution"
+         || p.first == "time")
+        continue;
+
+      switch(p.second)
+      {
+        case GL_BOOL:
+          node = n.create_bool(p.first);
+          break;
+        case GL_FLOAT:
+          ofLogNotice() << "make float parameter";
+          node = n.create_float(p.first);
+          break;
+        case GL_INT:
+          node = n.create_int(p.first);
+          break;
+        case GL_BOOL_VEC2:
+        case GL_INT_VEC2:
+        case GL_FLOAT_VEC2:
+          node = n.create_vec2f(p.first);
+          break;
+        case GL_BOOL_VEC3:
+        case GL_INT_VEC3:
+        case GL_FLOAT_VEC3:
+          node = n.create_vec3f(p.first);
+          break;
+        case GL_BOOL_VEC4:
+        case GL_INT_VEC4:
+        case GL_FLOAT_VEC4:
+          node = n.create_vec4f(p.first);
+          break;
+        default:
+          ofLogVerbose() << "uniform parameter " << p.first << " has unsupported type: " << p.second;
+      }
+
+      auto node_ptr = node.get_raw_node_pointer();
+      if(!node_ptr)
+        continue;
+
+      auto param = node_ptr->get_parameter();
+      if(!param)
+        continue;
+
+      param->add_callback( [=](const ossia::value& v)
+      {
+         m_uniform_mutex.lock();
+         m_uniforms_map[p.first] = opp::value(v);
+         m_uniform_mutex.unlock();
+      });
+
+      // UNIFORM_NODE(p.first);
+    }
+  }
 
   init_fbo(m_draw_fbo);
   init_fbo(m_prev);
@@ -206,13 +273,62 @@ void video_player::draw()
   m_shader.setUniformTexture("tex0", m_draw_fbo.getTexture(), m_draw_fbo.getTexture().getTextureData().textureID);
   m_shader.setUniformTexture("tex1", m_prev.getTexture(), m_prev.getTexture().getTextureData().textureID);
   m_shader.setUniform1f("time", ofGetElapsedTimef());
-  m_shader.setUniform1f("freq", 2.0);
-  m_shader.setUniform1f("amplitude", 1.0);
   m_shader.setUniform2f("resolution", ofGetWidth(), ofGetHeight());
-  float alpha = 0.f;
-  m_shader.setUniform1f("alpha", alpha);
-  m_shader.setUniform1f("beta", .9f);
-  m_shader.setUniform2f("anchor", .5f, .5f);
+
+  auto node = m_server.get_root_node().find_child("shader");
+  m_uniform_mutex.lock();
+  for(const auto u : m_uniforms_map)
+  {
+    auto node_name = u.first;
+    auto n = node.find_child(u.first);
+    auto ptr = n.get_raw_node_pointer();
+
+    if(!ptr)
+    {
+      ofLogError() << "invalid pointer on node: " << u.first;
+      continue;
+    }
+
+    auto p = ptr->get_parameter();
+    if(!p)
+    {
+      ofLogError() << "no parameter on this node: " << u.first;
+    }
+    // TODO WTF is this line ?
+    switch (n.get_raw_node_pointer()->get_parameter()->get_value_type())
+    {
+      case ossia::val_type::FLOAT:
+         m_shader.setUniform1f(u.first, u.second.to_float());
+        break;
+      case ossia::val_type::INT:
+        m_shader.setUniform1f(u.first, u.second.to_int());
+        break;
+      case ossia::val_type::BOOL:
+        m_shader.setUniform1f(u.first, u.second.to_bool());
+        break;
+      case ossia::val_type::VEC2F:
+        m_shader.setUniform2f(u.first, u.second.to_vec2f()[0], u.second.to_vec2f()[1]);
+        break;
+      case ossia::val_type::VEC3F:
+        m_shader.setUniform3f(u.first, u.second.to_vec2f()[0],
+            u.second.to_vec2f()[1], u.second.to_vec2f()[2]);
+        break;
+      case ossia::val_type::VEC4F:
+        m_shader.setUniform4f(u.first, u.second.to_vec2f()[0],
+            u.second.to_vec2f()[1], u.second.to_vec2f()[2],
+            u.second.to_vec2f()[3]);
+        break;
+     default:
+        ;
+    }
+  }
+  m_uniform_mutex.unlock();
+//  m_shader.setUniform1f("freq", 2.0);
+//  m_shader.setUniform1f("amplitude", 1.0);
+//  float alpha = 0.f;
+//  m_shader.setUniform1f("alpha", alpha);
+//  m_shader.setUniform1f("beta", .9f);
+//  m_shader.setUniform2f("anchor", .5f, .5f);
   m_draw_fbo.draw(0.,0., m_curr.getWidth(), m_curr.getHeight());
   m_shader.end();
   m_curr.end();
