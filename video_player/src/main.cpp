@@ -13,8 +13,23 @@ int main()
   settings.setSize(1024,768);
 #endif
 
+  string hostname;
+  string filepath("/etc/hostname");
+  ifstream file (filepath);
+  if (file.is_open())
+  {
+    if ( getline (file,hostname) )
+    {
+      ofLogNotice() << "hostname : " << hostname;
+    }
+    else {
+      ofLogError() << "can't read " << filepath;
+    }
+    file.close();
+  }
+
   auto window = ofCreateWindow(settings);
-  auto app = make_shared<video_player>();
+  auto app = make_shared<video_player>(hostname);
   ofRunApp(window, app);
 
   return ofRunMainLoop();

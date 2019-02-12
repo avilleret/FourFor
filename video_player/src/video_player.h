@@ -14,7 +14,7 @@
 class video_player : public ofBaseApp
 {
   public:
-    video_player();
+    video_player(const std::string& name);
 
     void setup  ();
     void update ();
