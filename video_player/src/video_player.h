@@ -2,7 +2,7 @@
 
 #include "ofMain.h"
 #include <ossia-cpp/ossia-cpp98.hpp>
-#ifdef TARGET_RASPBERRY_PI
+#ifdef OMXPLAYER
 #include "SafePlayer.h"
 #endif
 #include "SafeImage.h"
@@ -25,7 +25,7 @@ class video_player : public ofBaseApp
     void messageReceived (ofMessage&);
 
     safe_image m_images[NUM_IMG];
-#if TARGET_RASPBERRY_PI
+#if OMXPLAYER
     SafePlayer m_player;
 #endif
     opp::oscquery_server m_server;
@@ -34,4 +34,7 @@ class video_player : public ofBaseApp
     biomedical_display m_ecg;
 
     OssiaText m_clock;
+
+    std::unordered_map<std::string, opp::value> m_uniforms_map;
+    std::mutex m_uniform_mutex;
 };

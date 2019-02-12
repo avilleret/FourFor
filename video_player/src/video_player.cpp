@@ -24,7 +24,7 @@ void video_player::setup()
   ofClear(ofColor::black);
   ofSetColor(ofColor::white);
 
-#if TARGET_RASPBERRY_PI
+#if OMXPLAYER
   {
     auto root = m_server.get_root_node().create_void("video");
 
@@ -156,7 +156,7 @@ void video_player::setup()
   n.set_value("sop3.png");
   */
 
-#if TARGET_RASPBERRY_PI
+#if OMXPLAYER
   m_player.setVolume(0.);
 #endif
 
@@ -252,10 +252,13 @@ void video_player::update()
 
 void video_player::draw()
 {
-  ofClear(0);
   m_draw_fbo.begin();
+  ofClear(0.,0.,0.,1.);
+  ofSetColor(ofColor::black);
+  ofRectangle(0.,0.,m_draw_fbo.getWidth(), m_draw_fbo.getHeight());
+  ofSetColor(ofColor::white);
 
-#if TARGET_RASPBERRY_PI
+#if OMXPLAYER
   if(m_player.isPlaying())
     m_player.draw_safe(m_draw_fbo.getWidth(), m_draw_fbo.getHeight());
 #endif
