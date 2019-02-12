@@ -1,6 +1,6 @@
 #!/bin/bash +e
 
-ips=(fourfortv  fourforcartel fourforIRM fourforECG fourformidi)
+ips=(tv  cartel IRM ECG midi)
 
 cd build-rpi
 ninja install
