@@ -4,17 +4,6 @@
 Oscilloscope::Oscilloscope(const opp::node& root)
   : m_root(root)
 {
-  unsigned long size = 1024;
-  m_buffer.resize(size);
-  m_colors.resize(size);
-  m_weights.resize(size);
-  for(size_t i = 0; i < m_buffer.size(); i++)
-  {
-    m_buffer[i] = ofDefaultVertexType(float(i)/m_buffer.size(), 0.5, 0.);
-    m_colors[i] = m_color;
-    m_weights[i] = m_line_width;
-  }
-
   {
     auto n = m_root.create_argb("color");
     opp::value::vec4f c{1.,1.,0.,0.};
@@ -77,18 +66,16 @@ Oscilloscope::Oscilloscope(const opp::node& root)
 
   {
     auto n = m_root.create_int("buffer_length");
-    n.set_min(0);
+    n.set_min(32);
     n.set_max(1024);
-    n.set_value(1024);
+    n.set_bounding(opp::bounding_mode::Low);
+    n.set_value(static_cast<int>(m_size));
     n.set_value_callback(
           [](void* context, const opp::value& v){
       Oscilloscope* osc = (Oscilloscope*) context;
       int size = v.to_int();
-      osc->m_buffer.resize(size);
-      osc->m_colors.resize(size);
-      osc->m_weights.resize(size);
-      osc->m_line_width_changed=true;
-      osc->m_color_changed=true;
+      osc->m_size = v.to_int();
+      osc->m_size_changed=true;
     }, this);
   }
 }
@@ -119,6 +106,19 @@ void Oscilloscope::draw(float x, float y, float w, float h)
   }
   //ofLogNotice() << "end";
   m_mutex.lock();
+  if(m_size_changed)
+  {
+    m_buffer.resize(m_size);
+    m_colors.resize(m_size);
+    m_weights.resize(m_size);
+    for(size_t i = 0; i < m_buffer.size(); i++)
+    {
+      m_buffer[i] = ofDefaultVertexType(float(i)/m_buffer.size(), 0.5, 0.);
+      m_colors[i] = m_color;
+      m_weights[i] = m_line_width;
+    }
+    m_size_changed = false;
+  }
   if(m_line_width_changed)
   {
     for(auto& w : m_weights)

@@ -34,7 +34,9 @@ class Oscilloscope {
     std::atomic<float> m_line_width{1.};
     std::atomic<bool> m_line_width_changed;
     std::atomic<bool> m_color_changed;
+    std::atomic<bool> m_size_changed{true};
     std::mutex m_mutex{};
+    std::size_t m_size{64};
 
     opp::node m_root;
     int m_vbar_width=20;
