@@ -92,19 +92,6 @@ void Oscilloscope::draw(float x, float y, float w, float h)
   ofVec2f scale(w-h,h);
   //ofScale(float(w-h)/float(m_buffer.size()),h);
 
-  // line.setFeather(2.);
-  std::vector<ofDefaultVec3> scaled_buffer;
-  scaled_buffer.reserve(m_buffer.size());
-  //ofLogNotice() << "start";
-  for(auto d : m_buffer)
-  {
-    ofDefaultVec3 pt;
-    pt.x = d.x * scale.x;
-    pt.y = d.y * scale.y;
-    //ofLogNotice() << pt;
-    scaled_buffer.push_back(pt);
-  }
-  //ofLogNotice() << "end";
   m_mutex.lock();
   if(m_size_changed)
   {
@@ -134,18 +121,25 @@ void Oscilloscope::draw(float x, float y, float w, float h)
   }
 
   m_buffer[m_index] = ofDefaultVertexType(static_cast<float>(m_index)/m_buffer.size(), static_cast<double>(m_value)/2.+0.5, 0);
-  m_colors[m_index] = m_color;
   m_index = (m_index + 1) % m_buffer.size();
 
-  for(int i = 0; i<m_vbar_width; i++)
+  std::vector<ofDefaultVec3> scaled_buffer;
+  scaled_buffer.reserve(m_buffer.size());
+  for(auto d : m_buffer)
   {
-    m_colors[(m_index + i + 1) % m_buffer.size()] = ofColor::black;
+    ofDefaultVec3 pt;
+    pt.x = d.x * scale.x;
+    pt.y = d.y * scale.y;
+    scaled_buffer.push_back(pt);
   }
   ofxFatLine line(scaled_buffer, m_colors, m_weights);
   ofSetColor(m_color);
   m_mutex.unlock();
   line.setClosed(false);
   line.draw();
+
+  ofSetColor(ofColor::black);
+  ofDrawRectangle(scaled_buffer[m_index].x, 0., m_vbar_width, h);
 
   ofPopMatrix();
 
