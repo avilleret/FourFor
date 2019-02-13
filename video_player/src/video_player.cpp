@@ -51,7 +51,6 @@ void video_player::setup()
         vp->start();
         vp->unlock();
       }, &m_player);
-      n.set_value("../../../big_buck_bunny_720p_h264.mov");
     }
     {
       auto n = root.create_float("volume");
@@ -226,14 +225,37 @@ void video_player::setup()
          m_uniforms_map[p.first] = opp::value(v);
          m_uniform_mutex.unlock();
       });
-
-      // UNIFORM_NODE(p.first);
     }
   }
 
   init_fbo(m_draw_fbo);
   init_fbo(m_prev);
   init_fbo(m_curr);
+
+
+  m_server.get_root_node().load_preset(m_server.get_name() + ".txt");
+
+  auto node=m_server.get_root_node().create_void("preset");
+  {
+    node.create_impulse("save");
+    node.set_access(opp::access_mode::Set);
+    node.set_value_callback([](void* ctx, const opp::value&)
+    {
+      video_player* ptr = static_cast<video_player*>(ctx);
+      std::string filename = ptr->m_server.get_name() + ".txt";
+      ptr->m_server.get_root_node().save_preset(ofToDataPath(filename, true));
+    }, this);
+  }
+  {
+    node.create_impulse("load");
+    node.set_access(opp::access_mode::Set);
+    node.set_value_callback([](void* ctx, const opp::value&)
+    {
+      video_player* ptr = static_cast<video_player*>(ctx);
+      std::string filename = ptr->m_server.get_name() + ".txt";
+      ptr->m_server.get_root_node().save_preset(ofToDataPath(filename, true));
+    }, this);
+  }
 }
 
 void video_player::update()
