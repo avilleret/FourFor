@@ -67,6 +67,20 @@ void video_player::setup()
       }, &m_player);
     }
     {
+      auto n = root.create_bool("loop");
+      n.set_value_callback(
+            [](void* context, const opp::value& v){
+        SafePlayer* vp = static_cast<SafePlayer*>(context);
+        auto b = v.to_bool();
+        vp->lock();
+        if(b)
+          vp->enableLooping();
+        else
+          vp->disableLooping();
+        vp->unlock();
+      }, &m_player);
+    }
+    {
       auto n = root.create_bool("enable");
       n.set_value_callback(
             [](void* context, const opp::value& v){
