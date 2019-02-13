@@ -46,9 +46,8 @@ void video_player::setup()
         SafePlayer* vp = static_cast<SafePlayer*>(context);
         auto s = v.to_string();
         vp->lock();
-        vp->loadMovie(ofToDataPath(std::string("videos/"+s),true));
-        vp->m_enable=true;
-        vp->start();
+        vp->m_file_path = ofToDataPath(std::string("videos/"+s),true);
+        vp->m_file_path_changed = true;
         vp->unlock();
       }, &m_player);
     }
@@ -96,10 +95,23 @@ void video_player::setup()
             [](void* context, const opp::value& v){
         SafePlayer* vp = static_cast<SafePlayer*>(context);
         auto vec = v.to_vec4f();
-        vp->m_color = ofFloatColor(vec[1], vec[2], vec[3], vec[0]);
+        vp->m_color = ofFloatColor(vec[0], vec[1], vec[2], vec[3]);
       }, &m_player);
       n.set_value(opp::value::vec4f{1.,1,1.,1.});
     }
+    {
+      auto n = root.create_vec2f("position");
+      n.set_value_callback(
+            [](void* context, const opp::value& v){
+        SafePlayer* vp = static_cast<SafePlayer*>(context);
+        auto vec = v.to_vec2f();
+        vp->lock();
+        vp->m_position = ofVec2f(vec[0], vec[1]);
+        vp->unlock();
+      }, &m_player);
+      n.set_value(opp::value::vec2f{0.,0.});
+    }
+
   }
 #endif
 
@@ -251,29 +263,29 @@ void video_player::setup()
 
   auto node=m_server.get_root_node().create_void("preset");
   {
-    node.create_impulse("save");
-    node.set_access(opp::access_mode::Set);
-    node.set_value_callback([](void* ctx, const opp::value&)
+    auto n = node.create_impulse("save");
+    n.set_value_callback([](void* ctx, const opp::value&)
     {
       video_player* ptr = static_cast<video_player*>(ctx);
-      std::string filename = ptr->m_server.get_name() + ".txt";
-      ptr->m_server.get_root_node().save_preset(ofToDataPath(filename, true));
+      std::string filename = ofToDataPath(ptr->m_server.get_name() + ".txt", true);
+      ofLogNotice() << "saving preset to " << filename;
+      ptr->m_server.get_root_node().save_preset(filename);
     }, this);
   }
   {
-    node.create_impulse("load");
-    node.set_access(opp::access_mode::Set);
-    node.set_value_callback([](void* ctx, const opp::value&)
+    auto n = node.create_impulse("load");
+    n.set_value_callback([](void* ctx, const opp::value&)
     {
       video_player* ptr = static_cast<video_player*>(ctx);
       std::string filename = ptr->m_server.get_name() + ".txt";
-      ptr->m_server.get_root_node().save_preset(ofToDataPath(filename, true));
+      ptr->m_server.get_root_node().load_preset(ofToDataPath(filename, true));
     }, this);
   }
 }
 
 void video_player::update()
 {
+  m_player.update();
   // we need to update image in the main thread
   for(int i=0; i<NUM_IMG; i++)
     if(m_images[i].changed)

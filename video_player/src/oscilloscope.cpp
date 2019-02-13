@@ -53,7 +53,7 @@ Oscilloscope::Oscilloscope(const opp::node& root)
   {
     auto n = m_root.create_int("vbar_width");
     n.set_min(0);
-    n.set_max(int(m_buffer.size()));
+    n.set_max(int(m_size));
     n.set_value(20);
     n.set_value_callback(
           [](void* context, const opp::value& v){
