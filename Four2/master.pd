@@ -1,4 +1,4 @@
-#N canvas 400 211 700 475 10;
+#N canvas 441 520 700 475 10;
 #X obj 327 220 soprano;
 #X obj 507 220 basse;
 #X obj 387 220 alto;
@@ -188,7 +188,7 @@
 #X connect 13 0 9 1;
 #X connect 14 0 6 0;
 #X restore 61 314 pd make_symbol;
-#N canvas 810 238 470 540 clock 1;
+#N canvas 334 679 470 540 clock 0;
 #X obj 119 305 timer;
 #X obj 100 204 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
@@ -251,7 +251,7 @@
 #X restore 61 289 pd clock;
 #X obj 61 257 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label 0'00" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 7'00" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 365 \; clock_label label \$1;
 #X obj 431 442 dac~ 1 2 3 4;
