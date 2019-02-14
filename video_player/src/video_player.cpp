@@ -376,13 +376,14 @@ void video_player::draw()
 //  m_shader.setUniform1f("amplitude", 1.0);
 //  float alpha = 0.f;
 //  m_shader.setUniform1f("alpha", alpha);
-//  m_shader.setUniform1f("beta", .9f);
-//  m_shader.setUniform2f("anchor", .5f, .5f);
+  m_shader.setUniform1f("beta", 1.1f);
+  m_shader.setUniform2f("anchor", .5f, .5f);
   m_draw_fbo.draw(0.,0., m_curr.getWidth(), m_curr.getHeight());
   m_shader.end();
   m_curr.end();
 
   m_curr.draw(0,0,ofGetWidth(), ofGetHeight());
+  m_prev.draw(0,0,200,200);
 
   swap(m_curr, m_prev);
 }
