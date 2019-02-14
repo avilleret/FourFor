@@ -4,7 +4,7 @@
 
 video_player::video_player(const std::string& name)
   : m_server(name, 1236, 5680)
-  , m_ecg(m_server.get_root_node().create_void("ecg"))
+  // , m_ecg(m_server.get_root_node().create_void("ecg"))
   , m_clock(m_server.get_root_node().create_void("clock"))
 {
 }
@@ -295,7 +295,7 @@ void video_player::update()
       m_images[i].changed = false;
     }
 
-  m_ecg.update();
+  // m_ecg.update();
 }
 
 void video_player::draw()
@@ -313,7 +313,7 @@ void video_player::draw()
     if(m_images[i].isAllocated())
       m_images[i].draw_safe();
 
-  m_ecg.draw(0,0,m_draw_fbo.getWidth(), m_draw_fbo.getHeight());
+  // m_ecg.draw(0,0,m_draw_fbo.getWidth(), m_draw_fbo.getHeight());
   m_clock.draw();
   m_draw_fbo.end();
 
@@ -383,7 +383,7 @@ void video_player::draw()
   m_curr.end();
 
   m_curr.draw(0,0,ofGetWidth(), ofGetHeight());
-  m_prev.draw(0,0,200,200);
+  // m_prev.draw(0,0,200,200); // for debugging
 
   swap(m_curr, m_prev);
 }

@@ -17,8 +17,6 @@ endif()
   set(SOURCES
     src/main.cpp
     src/video_player.cpp
-    src/biomedical_display.cpp
-    src/oscilloscope.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.cpp
   )
 
@@ -26,8 +24,6 @@ endif()
     src/video_player.h
     src/SafeImage.h
     src/SafePlayer.h
-    src/biomedical_display.h
-    src/oscilloscope.h
     ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.h
   )
 

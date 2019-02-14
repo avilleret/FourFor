@@ -3,18 +3,10 @@
 
 Oscilloscope::Oscilloscope(const opp::node& root)
   : m_root(root)
-{
-  unsigned long size = 1024;
-  m_buffer.resize(size);
-  m_colors.resize(size);
-  m_weights.resize(size);
-  for(size_t i = 0; i < m_buffer.size(); i++)
-  {
-    m_buffer[i] = ofDefaultVertexType(float(i)/m_buffer.size(), 0.5, 0.);
-    m_colors[i] = m_color;
-    m_weights[i] = m_line_width;
-  }
+  , m_label(m_root.create_void("label"))
+  , m_unit(m_root.create_void("unit_label"))
 
+{
   {
     auto n = m_root.create_argb("color");
     opp::value::vec4f c{1.,1.,0.,0.};
@@ -61,20 +53,43 @@ Oscilloscope::Oscilloscope(const opp::node& root)
     }, this);
   }
 
+  {
+    auto n = m_root.create_int("vbar_width");
+    n.set_min(0);
+    n.set_max(int(m_size));
+    n.set_value(20);
+    n.set_value_callback(
+          [](void* context, const opp::value& v){
+      Oscilloscope* osc = (Oscilloscope*) context;
+      float f = v.to_float();
+      osc->m_vbar_width = f;
+      osc->m_line_width_changed=true;
+    }, this);
+  }
+
+  {
+    auto n = m_root.create_int("buffer_length");
+    n.set_min(32);
+    n.set_max(1024);
+    n.set_bounding(opp::bounding_mode::Low);
+    n.set_value(static_cast<int>(m_size));
+    n.set_value_callback(
+          [](void* context, const opp::value& v){
+      Oscilloscope* osc = (Oscilloscope*) context;
+      int size = v.to_int();
+      osc->m_size = v.to_int();
+      osc->m_size_changed=true;
+    }, this);
+  }
+
+  m_label.set_text("63.5");
+  m_label.set_scale(0.5);
+  m_unit.set_text("bpm");
+  m_unit.set_scale(0.25);
 }
 
 void Oscilloscope::update()
 {
-  if(m_line_width_changed)
-  {
-    for(auto& w : m_weights)
-    {
-      w = static_cast<double>(m_line_width);
-    }
-    m_line_width_changed = false;
-  }
-  m_buffer[m_index] = ofDefaultVertexType(static_cast<float>(m_index)/m_buffer.size(), static_cast<double>(m_value)/2.+0.5, 0);
-  m_index = (m_index + 1) % m_buffer.size();
 }
 
 void Oscilloscope::draw(float x, float y, float w, float h)
@@ -85,31 +100,66 @@ void Oscilloscope::draw(float x, float y, float w, float h)
   ofVec2f scale(w-h,h);
   //ofScale(float(w-h)/float(m_buffer.size()),h);
 
-  // line.setFeather(2.);
+  m_mutex.lock();
+  if(m_size_changed)
+  {
+    m_buffer.resize(m_size);
+    m_colors.resize(m_size);
+    m_weights.resize(m_size);
+    for(size_t i = 0; i < m_buffer.size(); i++)
+    {
+      m_buffer[i] = ofDefaultVertexType(float(i)/m_buffer.size(), 0.5, 0.);
+      m_colors[i] = m_color;
+      m_weights[i] = m_line_width;
+    }
+    m_size_changed = false;
+  }
+  if(m_line_width_changed)
+  {
+    for(auto& w : m_weights)
+    {
+      w = static_cast<double>(m_line_width);
+    }
+    m_line_width_changed = false;
+  }
+  if(m_color_changed)
+  {
+    for(size_t i = 0; i < m_buffer.size(); i++)
+    m_colors[i] = m_color;
+  }
+
+  m_buffer[m_index] = ofDefaultVertexType(static_cast<float>(m_index)/m_buffer.size(), static_cast<double>(m_value)/2.+0.5, 0);
+  m_index = (m_index + 1) % m_buffer.size();
+
   std::vector<ofDefaultVec3> scaled_buffer;
   scaled_buffer.reserve(m_buffer.size());
-  //ofLogNotice() << "start";
   for(auto d : m_buffer)
   {
     ofDefaultVec3 pt;
     pt.x = d.x * scale.x;
     pt.y = d.y * scale.y;
-    //ofLogNotice() << pt;
     scaled_buffer.push_back(pt);
   }
-  //ofLogNotice() << "end";
-  m_mutex.lock();
   ofxFatLine line(scaled_buffer, m_colors, m_weights);
   ofSetColor(m_color);
   m_mutex.unlock();
   line.setClosed(false);
   line.draw();
 
+  ofSetColor(ofColor::black);
+  ofDrawRectangle(scaled_buffer[m_index].x, 0., m_vbar_width, h);
+
   ofPopMatrix();
 
   ofPushMatrix();
-  ofTranslate(w-h,y);
-  ofDrawBitmapString("60", 20, 20, 0);
+
+  m_label.set_color(m_color);
+  m_label.set_position(ofVec2f(w-h+5.,y+h-75.));
+  m_label.draw();
+
+  m_unit.set_color(m_color);
+  m_unit.set_position(ofVec2f(w-h+50.,y+h-20.));
+  m_unit.draw();
 
   ofPopMatrix();
   ofPopStyle();

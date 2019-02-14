@@ -7,7 +7,7 @@
 #endif
 #include "SafeImage.h"
 #include "OssiaText.h"
-#include "biomedical_display.h"
+// #include "biomedical_display.h"
 
 #define NUM_IMG 4
 
@@ -31,7 +31,7 @@ class video_player : public ofBaseApp
     opp::oscquery_server m_server;
     ofShader m_shader;
     ofFbo m_draw_fbo, m_prev, m_curr;
-    biomedical_display m_ecg;
+    // biomedical_display m_ecg;
 
     OssiaText m_clock;
 
