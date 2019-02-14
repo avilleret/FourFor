@@ -20,4 +20,4 @@ Software for FourFor show
     ffmpeg -i ${file} -vcodec libx264 -profile:v high -preset fast -crf 18 -b-pyramid none -vf scale=-1:720 -acodec ac3 -ab 1536k -scodec copy encoded/${file}
 
 # Quickly display image on RPi
-    sudo fbi -a il1.jpg -d /dev/fb0 -T 1
+    sudo fbi -d /dev/fb0 -T 1 -a il1.jpg

@@ -8,5 +8,5 @@ ninja install
 for i in "${ips[@]}"
 do
 	echo Push to $i
-	rsync -hvrPtl  FourFor/ pi@$i.local:~/FourFor
+	rsync -hvrPtl  FourFor/ pi@$i.local:/opt/FourFor
 done

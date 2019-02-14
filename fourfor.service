@@ -1,0 +1,9 @@
+[Unit]
+Description="FourFor display"
+
+[Service]
+ExecStart=/opt/FourFor/start.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
