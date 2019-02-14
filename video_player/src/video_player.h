@@ -7,6 +7,7 @@
 #endif
 #include "SafeImage.h"
 #include "OssiaText.h"
+#include "OssiaShader.h"
 // #include "biomedical_display.h"
 
 #define NUM_IMG 4
@@ -29,12 +30,9 @@ class video_player : public ofBaseApp
     SafePlayer m_player;
 #endif
     opp::oscquery_server m_server;
-    ofShader m_shader;
+    OssiaShader m_shader;
     ofFbo m_draw_fbo, m_prev, m_curr;
     // biomedical_display m_ecg;
 
     OssiaText m_clock;
-
-    std::unordered_map<std::string, opp::value> m_uniforms_map;
-    std::mutex m_uniform_mutex;
 };

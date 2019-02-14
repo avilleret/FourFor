@@ -18,6 +18,7 @@ endif()
     src/main.cpp
     src/video_player.cpp
     ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaShader.cpp
   )
 
   set(HEADERS
@@ -25,6 +26,7 @@ endif()
     src/SafeImage.h
     src/SafePlayer.h
     ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.h
+    ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaShader.h
   )
 
   add_executable(
