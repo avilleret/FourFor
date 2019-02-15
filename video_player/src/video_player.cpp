@@ -5,7 +5,9 @@ video_player::video_player(const std::string& name)
   , m_shader(m_server.get_root_node().create_void("shader"))
   , m_clock(m_server.get_root_node().create_void("clock"))
   , m_sd(name == "tv")
+#ifdef OMXPLAYER
   , m_player(m_sd)
+#endif
 {
 }
 
@@ -121,7 +123,7 @@ void video_player::setup()
   {
     for(int i=0; i<NUM_IMG; i++)
     {
-      auto root = m_server.get_root_node().create_void("image.0");
+      auto root = m_server.get_root_node().create_void("image.1");
       {
         auto n = root.create_string("load");
         n.set_value_callback(
@@ -149,6 +151,7 @@ void video_player::setup()
       }
       {
         auto n = root.create_float("scale");
+        n.set_value(1.);
         n.set_value_callback(
               [](void* context, const opp::value& v){
           safe_image* im = static_cast<safe_image*>(context);
@@ -184,10 +187,6 @@ void video_player::setup()
   n.set_value("sop3.png");
   */
 
-#if OMXPLAYER
-  m_player.setVolume(0.);
-#endif
-
   init_fbo(m_draw_fbo);
   init_fbo(m_prev);
   init_fbo(m_curr);
@@ -219,7 +218,9 @@ void video_player::setup()
 
 void video_player::update()
 {
+#ifdef OMXPLAYER
   m_player.update();
+#endif
   // we need to update image in the main thread
   for(int i=0; i<NUM_IMG; i++)
     if(m_images[i].changed)
