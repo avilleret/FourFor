@@ -37,23 +37,23 @@ AbstractText::AbstractText(const opp::node& root)
   }
   {
     auto n = m_root.create_float("scale");
+    n.set_value(1.);
     n.set_value_callback([](void* ctx, const opp::value& v)
     {
       OssiaText* ptr = static_cast<OssiaText*>(ctx);
       auto s = v.to_float();
       ptr->set_scale(s);
     }, this);
-    n.set_value(1.);
   }
   {
     auto n = m_root.create_argb("color");
+    n.set_value(opp::value::vec4f{1.,1.,1.,1.});
     n.set_value_callback([](void* ctx, const opp::value& v)
     {
       OssiaText* ptr = static_cast<OssiaText*>(ctx);
       auto c = v.to_vec4f();
       ptr->set_color(ofFloatColor(c[1],c[2],c[3],c[0]));
     }, this);
-    n.set_value(1.);
   }
 }
 
