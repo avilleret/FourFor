@@ -30,9 +30,9 @@ void biomedical_display::setup()
   {
     auto& txt = m_texts.add(m_server.get_root_node().create_void("name"));
     txt.set_color(ofFloatColor::aqua);
-    txt.set_scale(0.1);
-    txt.set_position(ofVec2f(20., 200.));
-    txt.set_text("FELDMAN Morton -- birthdate: 26.01.12");
+    txt.set_scale(0.2);
+    txt.set_position(ofVec2f(20., 40.));
+    txt.set_text("FELDMAN Morton\t\t\t26.01.12");
   }
 
   int i=0;
