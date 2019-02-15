@@ -26,13 +26,18 @@ class video_player : public ofBaseApp
     void messageReceived (ofMessage&);
 
     safe_image m_images[NUM_IMG];
-#if OMXPLAYER
-    SafePlayer m_player;
-#endif
+
     opp::oscquery_server m_server;
     OssiaShader m_shader;
     ofFbo m_draw_fbo, m_prev, m_curr;
     // biomedical_display m_ecg;
 
     OssiaText m_clock;
+    bool m_sd; // true if we use Composite output
+
+#if OMXPLAYER
+    SafePlayer m_player;
+#endif
+  private:
+    void init_fbo(ofFbo& fbo);
 };

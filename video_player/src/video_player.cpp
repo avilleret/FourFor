@@ -4,12 +4,17 @@ video_player::video_player(const std::string& name)
   : m_server(name, 1236, 5680)
   , m_shader(m_server.get_root_node().create_void("shader"))
   , m_clock(m_server.get_root_node().create_void("clock"))
+  , m_sd(name == "tv")
+  , m_player(m_sd)
 {
 }
 
-void init_fbo(ofFbo& fbo)
+void video_player::init_fbo(ofFbo& fbo)
 {
-  fbo.allocate(1280, 720);
+  if(m_sd)
+   fbo.allocate(ofGetWidth(), ofGetHeight());
+  else
+   fbo.allocate(1280, 720);
 
   fbo.begin();
   ofClear(0);
@@ -186,6 +191,7 @@ void video_player::setup()
   init_fbo(m_draw_fbo);
   init_fbo(m_prev);
   init_fbo(m_curr);
+  ofLogNotice() << "fbo resolution: " << m_draw_fbo.getWidth() << "x" << m_draw_fbo.getHeight();
 
   m_server.get_root_node().load_preset(m_server.get_name() + ".txt");
 
