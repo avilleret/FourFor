@@ -11,7 +11,7 @@ struct SafePlayer : public ofxOMXPlayer,
   {
     ofxOMXPlayerSettings settings;
     settings.useHDMIForAudio = !m_sd;
-    settings.initialVolume = 1.0;
+    settings.initialVolume = 0.5;
 
     setup(settings);
   }
