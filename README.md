@@ -13,7 +13,7 @@ Software for FourFor show
 
 # Synchronize install folder with RPi
 
-    ninja install && rsync -hvrPtl  FourFor/ pi@raspberrypi.local:~/FourFor
+    ninja install && rsync -hvrPtl  FourFor/ pi@raspberrypi.local:/opt/FourFor
 
 
 # Transcode video for Raspberry Pi
