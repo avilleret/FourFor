@@ -9,22 +9,45 @@ class safe_image : public ofImage,
     void draw_safe(float x, float y, float w, float h){
       if(m_enable)
       {
+        ofPushStyle();
         lock();
+        ofSetColor(m_color);
         draw(x,y,w,h);
         unlock();
+        ofPopStyle();
       }
     }
     void draw_safe(float x, float y)
     {
-      draw_safe(x, y, m_scale*getWidth(), m_scale*getHeight());
+      draw_safe(x, y, m_scale*ofImage::getWidth(), m_scale*ofImage::getHeight());
     }
     void draw_safe()
     {
       draw_safe(m_position[0],m_position[1]);
     }
 
+    void update()
+    {
+      if(m_changed)
+      {
+        if(load(std::string("images/" + m_file)))
+        {
+          ofLogNotice() << "load " << m_file;
+          m_enable=true;
+        }
+        else
+        {
+          ofLogError() << "can't load image " << m_file;
+        }
+        m_changed=false;
+      }
+    }
+
     opp::value::vec2f m_position;
     std::atomic<float> m_scale{1.};
-    std::atomic<bool> m_enable{false};
-    std::atomic<bool> changed{false};
+    std::atomic<bool> m_enable{true};
+    std::atomic<bool> m_changed{false};
+    ofFloatColor m_color{ofColor::white};
+
+    std::string m_file;
 };

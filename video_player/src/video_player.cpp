@@ -131,10 +131,8 @@ void video_player::setup()
           safe_image* im = static_cast<safe_image*>(context);
           auto s = v.to_string();
           im->lock();
-          im->load(std::string("images/" + s));
-          ofLogNotice() << "load " << s;
-          im->changed = true;
-          im->m_enable=true;
+          im->m_file = s;
+          im->m_changed = true;
           im->unlock();
         }, &m_images[i]);
       }
@@ -169,6 +167,18 @@ void video_player::setup()
           auto b = v.to_bool();
           im->m_enable = b;
         }, &m_images[i]);
+      }
+      {
+        auto n = root.create_rgba("color");
+        n.set_value_callback(
+              [](void* context, const opp::value& v){
+          safe_image* im = static_cast<safe_image*>(context);
+          auto vec = v.to_vec4f();
+          im->lock();
+          im->m_color = ofFloatColor(vec[0], vec[1], vec[2], vec[3]);
+          im->unlock();
+        },  &m_images[i]);
+        n.set_value(opp::value::vec4f{1.,1,1.,1.});
       }
     }
   }
@@ -223,14 +233,7 @@ void video_player::update()
 #endif
   // we need to update image in the main thread
   for(int i=0; i<NUM_IMG; i++)
-    if(m_images[i].changed)
-    {
-      ofLogNotice() << "update image " << i;
-      m_images[i].update();
-      m_images[i].changed = false;
-    }
-
-  // m_ecg.update();
+    m_images[i].update();
 }
 
 void video_player::draw()
