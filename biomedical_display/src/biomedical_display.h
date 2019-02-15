@@ -5,6 +5,7 @@
 #include "ofxShadertoy.h"
 #include <ossia-cpp/ossia-cpp98.hpp>
 #include "OssiaText.h"
+#include "OssiaShader.h"
 
 class biomedical_display : public ofBaseApp
 {
@@ -17,7 +18,6 @@ class biomedical_display : public ofBaseApp
 
     void messageReceived (ofMessage&);
     void windowResized   (ofResizeEventArgs&);
-    ofShader& get_shader() { return m_shader; }
 
     std::map<std::string, std::pair<std::string, float>> m_uniform_map;
 
@@ -25,12 +25,13 @@ class biomedical_display : public ofBaseApp
     std::vector<std::shared_ptr<Oscilloscope>> m_oscillos;
     opp::oscquery_server m_server;
 
-    ofShader m_shader;
+    OssiaShader m_shader;
 
-   ofFbo m_fbo;
-   ofFbo m_PALfbo;
+    ofFbo m_draw_fbo;
+    ofFbo m_curr;
+    ofFbo m_prev;
 
-   OssiaText m_label;
+    OssiaMultiText m_texts;
 
-   ofVec2f render_size;
+    ofVec2f render_size;
 };

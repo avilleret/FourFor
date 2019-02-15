@@ -183,8 +183,6 @@ void video_player::setup()
   m_player.setVolume(0.);
 #endif
 
-  m_shader.load("shaders/feedback");
-
   init_fbo(m_draw_fbo);
   init_fbo(m_prev);
   init_fbo(m_curr);

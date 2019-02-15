@@ -1,21 +1,8 @@
 #include "biomedical_display.h"
 
-#define UNIFORM_NODE(node_name, uniform_name) \
-{ \
-  auto root = m_server.get_root_node(); \
-  auto n = root.create_float(node_name); \
-  n.set_value_callback([](void* ctx, const opp::value& v){ \
-    biomedical_display* ptr = static_cast<biomedical_display*>(ctx); \
-    float f = v.to_float(); \
-    ptr->m_uniform_map[node_name].second = f; \
-  }, this); \
-  m_uniform_map[node_name] = std::pair<std::string, float>(uniform_name, 0.); \
-  n.set_value(0); \
-}
-
 biomedical_display::biomedical_display()
-  : m_server("biomedical_display", 1234, 5678)
-  , m_label(m_server.get_root_node().create_void("label"))
+  : m_server("ecg", 1234, 5678)
+  , m_shader(m_server.get_root_node().create_void("shader"))
 {
 
 }
@@ -36,9 +23,6 @@ void biomedical_display::setup()
   m_oscillos[0]->set_color(ofColor::green);
   m_oscillos[1]->set_color(ofColor::yellow);
   m_oscillos[2]->set_color(ofColor::aqua);
-
-  //ofDisableArbTex();
-  //m_shader.load("shaders/distorted TV");
 
   ofResizeEventArgs size(ofGetWidth(), ofGetHeight());
   windowResized(size);
@@ -61,8 +45,7 @@ void biomedical_display::update()
 
 void biomedical_display::draw()
 {
-  ofLogNotice() << "draw";
-  m_fbo.begin();
+  m_draw_fbo.begin();
   ofClear(ofColor::black);
   int i=0;
   for(auto& osc : m_oscillos)
@@ -72,16 +55,23 @@ void biomedical_display::draw()
     i++;
     m_label.draw();
   }
-  m_fbo.end();
+  m_draw_fbo.end();
 
-  m_PALfbo.begin();
+  m_curr.begin();
+  {
+    m_shader.begin();
+    m_shader.setUniformTexture("tex0", m_draw_fbo.getTexture(), m_draw_fbo.getTexture().getTextureData().textureID);
+    m_shader.setUniformTexture("tex1", m_prev.getTexture(), m_prev.getTexture().getTextureData().textureID);
+    {
+      m_draw_fbo.draw(0.,0., m_curr.getWidth(), m_curr.getHeight());
+    }
+    m_shader.end();
+  }
+  m_curr.end();
 
-  ofClear(ofColor::black);
-  m_fbo.draw(0.,0., m_PALfbo.getWidth(), m_PALfbo.getHeight());
+  m_curr.draw(0,0,ofGetWidth(), ofGetHeight());
 
-  m_PALfbo.end();
-
-  m_PALfbo.draw(0,0,ofGetWidth(), ofGetHeight());
+  swap(m_prev, m_curr);
 }
 
 void biomedical_display::exit()
@@ -97,14 +87,12 @@ void biomedical_display::windowResized   (ofResizeEventArgs& args)
   render_size.y = 576;
   render_size.x = float(ofGetWidth()*render_size.y)/ofGetHeight();
 
-  m_fbo.allocate(render_size.x, render_size.y);
-  m_fbo.begin();
-  ofClear(ofColor::black);
-  m_fbo.end();
-
-  m_PALfbo.allocate(render_size.x, render_size.y);
-  m_PALfbo.begin();
-  ofClear(ofColor::black);
-  m_PALfbo.end();
+  for(ofFbo* fbo : {&m_curr, &m_prev, &m_draw_fbo, &m_draw_fbo})
+  {
+    fbo->allocate(render_size.x, render_size.y);
+    fbo->begin();
+      ofClear(ofColor::black);
+    fbo->end();
+  }
 }
 
