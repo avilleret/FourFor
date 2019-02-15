@@ -47,6 +47,12 @@ install(
   "${CMAKE_CURRENT_LIST_DIR}/images"
   DESTINATION data
   PATTERN ".git*" EXCLUDE
+  PERMISSIONS OWNER_READ
+              OWNER_WRITE
+              GROUP_READ
+              GROUP_WRITE
+              WORLD_READ
+              WORLD_WRITE
 )
 
 install(
