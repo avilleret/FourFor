@@ -10,3 +10,6 @@
 [submodule "biomedical_display/ofxFatLines"]
 	path = biomedical_display/ofxFatLines
 	url = https://github.com/avilleret/ofxFatLines.git
+[submodule "disklavier/pimidi"]
+	path = disklavier/pimidi
+	url = https://github.com/ravelox/pimidi.git

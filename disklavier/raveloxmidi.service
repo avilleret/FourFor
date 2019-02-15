@@ -1,0 +1,11 @@
+[Unit]
+Description="RTP Midi service"
+
+[Service]
+ExecStart=/opt/FourFor/disklavier/start.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+
