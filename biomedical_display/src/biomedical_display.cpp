@@ -27,11 +27,35 @@ void biomedical_display::setup()
   ofResizeEventArgs size(ofGetWidth(), ofGetHeight());
   windowResized(size);
 
-  m_label.loadFont("verdana.ttf", 24);
-  m_label.set_color(ofFloatColor::aqua);
-  m_label.set_scale(0.5);
-  m_label.set_position(ofVec2f(20., 20.));
-  m_label.set_text("MORTON FELDMAN");
+  {
+    auto& txt = m_texts.add(m_server.get_root_node().create_void("name"));
+    txt.set_color(ofFloatColor::aqua);
+    txt.set_scale(0.1);
+    txt.set_position(ofVec2f(20., 200.));
+    txt.set_text("FELDMAN Morton -- birthdate: 26.01.12");
+  }
+
+  int i=0;
+  vector<pair<string, string>> txts = {{"83.4", "bpm"}, {"22.4", "cpm"}, {"92%", "SpO2"}};
+  for(auto& c : {ofColor::green, ofColor::yellow, ofColor::aqua})
+  {
+    {
+      auto& txt = m_texts.add(m_server.get_root_node().create_void("number.1"));
+      txt.set_color(c);
+      txt.set_scale(0.8);
+      txt.set_position(ofVec2f(render_size.x-250., 120.+i*render_size.y/m_oscillos.size()));
+      txt.set_text(txts[i].first);
+    }
+
+    {
+      auto& txt = m_texts.add(m_server.get_root_node().create_void("label.1"));
+      txt.set_color(c);
+      txt.set_scale(0.2);
+      txt.set_position(ofVec2f(render_size.x-80., 150.+i*render_size.y/m_oscillos.size()));
+      txt.set_text(txts[i].second);
+    }
+    i++;
+  }
 }
 
 void biomedical_display::update()
@@ -53,7 +77,7 @@ void biomedical_display::draw()
     osc->draw(0.,float(i)/m_oscillos.size()*render_size.y,
              render_size.x,float(render_size.y)/m_oscillos.size());
     i++;
-    m_label.draw();
+    m_texts.draw();
   }
   m_draw_fbo.end();
 

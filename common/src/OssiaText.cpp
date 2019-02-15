@@ -1,9 +1,22 @@
 #include "OssiaText.h"
 
-OssiaText::OssiaText(const opp::node& root) :
-  m_root(root)
+OssiaText::OssiaText(const opp::node& root)
+  : AbstractText(root)
 {
   load("verdana.ttf",96);
+}
+
+void OssiaText::draw()
+{
+  begin();
+    drawString(m_text, 0., 0.);
+  end();
+}
+
+AbstractText::AbstractText(const opp::node& root)
+  : std::mutex()
+  , m_root(root)
+{
   {
     auto n = m_root.create_string("text");
     n.set_value_callback([](void* ctx, const opp::value& v)
@@ -44,7 +57,7 @@ OssiaText::OssiaText(const opp::node& root) :
   }
 }
 
-void OssiaText::set_text(const std::string& s)
+void AbstractText::set_text(const std::string& s)
 {
   lock();
   m_text = s;
@@ -53,7 +66,7 @@ void OssiaText::set_text(const std::string& s)
   unlock();
 }
 
-void OssiaText::draw()
+void AbstractText::begin()
 {
   ofPushStyle();
   ofPushMatrix();
@@ -61,8 +74,69 @@ void OssiaText::draw()
   ofSetColor(m_color);
   ofTranslate(m_position.x, m_position.y);
   ofScale(m_scale,m_scale);
-  drawString(m_text, m_center.x, m_center.y);
+}
+
+void AbstractText::end(){
   unlock();
   ofPopMatrix();
   ofPopStyle();
+}
+
+void AbstractText::set_position(const ofVec2f& pos)
+{
+  try
+  {
+    lock();
+    m_position = pos;
+    unlock();
+  }
+  catch (const std::exception& e)
+  {
+    ofLogError("AbstractText") << "Error in set_position() : " << e.what();
+  }
+}
+void AbstractText::set_scale(float f)
+{
+  try{
+  lock();
+  m_scale = f;
+  unlock();
+  }
+  catch (const std::exception& e)
+  {
+    ofLogError("AbstractText") << "Error in set_scale() : " << e.what();
+  }
+}
+void AbstractText::set_color(const ofFloatColor& c)
+{
+  try{
+    lock();
+    m_color = c;
+    unlock();
+  }
+  catch (const std::exception& e)
+  {
+    ofLogError("AbstractText") << "Error in set_scale() : " << e.what();
+  }
+}
+
+OssiaMultiText::OssiaMultiText()
+{
+  load("verdana.ttf",96);
+}
+
+AbstractText& OssiaMultiText::add(const opp::node& root)
+{
+  m_texts.push_back(std::make_unique<AbstractText>(root));
+  return *m_texts.back();
+}
+
+void OssiaMultiText::draw()
+{
+  for(auto& txt : m_texts)
+  {
+    txt->begin();
+      drawString(txt->get_text(), 0., 0.);
+    txt->end();
+  }
 }

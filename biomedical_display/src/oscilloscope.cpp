@@ -3,9 +3,6 @@
 
 Oscilloscope::Oscilloscope(const opp::node& root)
   : m_root(root)
-  , m_label(m_root.create_void("label"))
-  , m_unit(m_root.create_void("unit_label"))
-
 {
   {
     auto n = m_root.create_argb("color");
@@ -81,11 +78,6 @@ Oscilloscope::Oscilloscope(const opp::node& root)
       osc->m_size_changed=true;
     }, this);
   }
-
-  m_label.set_text("63.5");
-  m_label.set_scale(0.5);
-  m_unit.set_text("bpm");
-  m_unit.set_scale(0.25);
 }
 
 void Oscilloscope::update()
@@ -152,14 +144,6 @@ void Oscilloscope::draw(float x, float y, float w, float h)
   ofPopMatrix();
 
   ofPushMatrix();
-
-  m_label.set_color(m_color);
-  m_label.set_position(ofVec2f(w-h+5.,y+h-75.));
-  m_label.draw();
-
-  m_unit.set_color(m_color);
-  m_unit.set_position(ofVec2f(w-h+50.,y+h-20.));
-  m_unit.draw();
 
   ofPopMatrix();
   ofPopStyle();

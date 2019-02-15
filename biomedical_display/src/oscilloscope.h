@@ -42,6 +42,4 @@ class Oscilloscope {
     opp::node m_root;
     int m_vbar_width=20;
 
-    OssiaText m_label;
-    OssiaText m_unit;
 };
