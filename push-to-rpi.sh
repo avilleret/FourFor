@@ -10,5 +10,7 @@ do
 	echo "
 
 	=========> Push to $i <========="
-	rsync -hvrPtl  FourFor/ pi@$i.local:/opt/FourFor
+	#rsync -hvrPtl  FourFor/ pi@$i.local:/opt/FourFor
+	rsync -av  FourFor/ pi@$i.local:/opt/FourFor
+
 done
