@@ -183,7 +183,7 @@ void video_player::setup()
       }
     }
   }
-  auto n = m_server.get_root_node().find_child("image.0");
+  auto n = m_server.get_root_node().find_child("image.1");
   n.find_child("load").set_value("sop1.png");
   n.find_child("scale").set_value(0.2);
 
@@ -203,7 +203,7 @@ void video_player::setup()
   init_fbo(m_curr);
   ofLogNotice() << "fbo resolution: " << m_draw_fbo.getWidth() << "x" << m_draw_fbo.getHeight();
 
-  m_server.get_root_node().load_preset(m_server.get_name() + ".txt");
+  // m_server.get_root_node().load_preset(m_server.get_name() + ".txt");
 
   auto node=m_server.get_root_node().create_void("preset");
   {
