@@ -187,7 +187,7 @@
 #X restore 61 229 pd clock;
 #X obj 61 197 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label 0'16" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 0'52" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 305 \; clock_label label \$1;
 #X obj 432 455 dac~ 3 4;
@@ -373,7 +373,7 @@
 #X connect 5 0 3 0;
 #X restore 243 68 pd tv-client;
 #N canvas 359 284 450 300 midi-client 0;
-#X obj 115 91 loadbang;
+#X obj 115 71 loadbang;
 #X obj 115 161 print;
 #N canvas 584 142 590 350 init 0;
 #X obj 29 4 inlet;
@@ -402,6 +402,7 @@
 #X connect 2 0 8 0;
 #X connect 3 0 16 0;
 #X connect 3 0 17 0;
+#X connect 3 0 14 0;
 #X connect 4 0 9 0;
 #X connect 4 1 5 0;
 #X connect 5 0 6 0;
@@ -415,33 +416,34 @@
 #X restore 98 183 pd init;
 #X msg 254 114 namespace;
 #X obj 115 138 ossia.client midi;
-#X msg 115 114 connect raspberrypi;
 #X obj 75 240 outlet;
-#X connect 0 0 5 0;
-#X connect 2 0 6 0;
-#X connect 2 1 5 0;
+#X msg 99 45 connect oscquery ws://192.168.0.40:5680;
+#X msg 115 94 connect midi;
+#X connect 0 0 7 0;
+#X connect 2 0 5 0;
+#X connect 2 1 7 0;
 #X connect 3 0 4 0;
 #X connect 4 0 1 0;
 #X connect 4 0 2 0;
-#X connect 5 0 4 0;
+#X connect 7 0 4 0;
 #X restore 243 88 pd midi-client;
-#X obj 25 424 ø.remote raspberrypi:/image.1/load;
 #X obj 387 302 ø.remote cartel:/image.1/load;
 #X obj 507 262 ø.remote ecg:/image.1/load;
 #X obj 447 282 ø.remote irm:/image.1/load;
 #X obj 327 322 ø.remote tv:/image.1/load;
+#X obj 25 424 ø.remote midi:/image.1/load;
 #X connect 0 1 4 0;
 #X connect 1 1 12 0;
 #X connect 2 1 11 0;
 #X connect 3 1 13 0;
-#X connect 4 0 44 0;
+#X connect 4 0 43 0;
 #X connect 5 0 26 0;
 #X connect 6 0 26 0;
 #X connect 7 0 25 0;
 #X connect 8 0 25 0;
-#X connect 11 0 41 0;
-#X connect 12 0 42 0;
-#X connect 13 0 43 0;
+#X connect 11 0 40 0;
+#X connect 12 0 41 0;
+#X connect 13 0 42 0;
 #X connect 15 0 16 0;
 #X connect 17 0 15 0;
 #X connect 19 0 18 0;
@@ -452,7 +454,7 @@
 #X connect 25 0 24 1;
 #X connect 26 0 24 0;
 #X connect 27 0 28 0;
-#X connect 28 0 40 0;
+#X connect 28 0 44 0;
 #X connect 29 0 20 1;
 #X connect 30 0 34 0;
 #X connect 31 0 32 0;
