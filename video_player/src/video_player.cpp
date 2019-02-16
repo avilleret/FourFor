@@ -123,6 +123,7 @@ void video_player::setup()
   {
     for(int i=0; i<NUM_IMG; i++)
     {
+      m_images[i].m_sd = m_sd;
       auto root = m_server.get_root_node().create_void("image.1");
       {
         auto n = root.create_string("load");
