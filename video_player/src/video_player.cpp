@@ -41,6 +41,8 @@ void video_player::setup()
         auto b = v.to_bool();
         vp->lock();
         vp->setPaused(!b);
+        if(!b)
+          vp->m_file_path_changed = false;
         vp->unlock();
       }, &m_player);
     }
