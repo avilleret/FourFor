@@ -3,12 +3,12 @@
 video_player::video_player(const std::string& name)
   : m_server(name, 1236, 5680)
   , m_shader(m_server.get_root_node().create_void("shader"))
-  , m_clock(m_server.get_root_node().create_void("clock"))
   , m_sd(name == "tv")
 #ifdef OMXPLAYER
   , m_player(m_sd)
 #endif
 {
+  // m_clock.add(m_server.get_root_node().create_void("clock"));
 }
 
 void video_player::init_fbo(ofFbo& fbo)
@@ -132,6 +132,7 @@ void video_player::setup()
           auto s = v.to_string();
           im->lock();
           im->m_file = s;
+          ofLogNotice() << "try to load " << s;
           im->m_changed = true;
           im->unlock();
         }, &m_images[i]);
@@ -252,7 +253,7 @@ void video_player::draw()
       m_images[i].draw_safe();
 
   // m_ecg.draw(0,0,m_draw_fbo.getWidth(), m_draw_fbo.getHeight());
-  m_clock.draw();
+  //m_clock.draw();
   m_draw_fbo.end();
 
   m_curr.begin();

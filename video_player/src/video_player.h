@@ -32,7 +32,7 @@ class video_player : public ofBaseApp
     ofFbo m_draw_fbo, m_prev, m_curr;
     // biomedical_display m_ecg;
 
-    OssiaText m_clock;
+    //OssiaMultiText m_clock;
     bool m_sd; // true if we use Composite output
 
 #if OMXPLAYER
