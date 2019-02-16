@@ -1,6 +1,6 @@
 #!/bin/bash +e
 
-ips=(tv  cartel IRM ECG midi)
+ips=(tv  cartel irm ecg midi raspberrypi)
 
 cd build-rpi
 ninja install
