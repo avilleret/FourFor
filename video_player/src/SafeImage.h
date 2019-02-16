@@ -19,33 +19,12 @@ class safe_image : public ofImage,
     }
     void draw_safe(float x, float y)
     {
-      int targetWidth;
-      int targetHeight;
-
-      float w = ofImage::getWidth();
-      float h = ofImage::getHeight();
-
-      float draw_w = ofGetWidth();
-      float draw_h = ofGetHeight();
-
-      if(!m_sd)
+      if(m_sd)
       {
-        float ratio = w/h;
-        float target_ratio = float(targetWidth)/float(targetHeight);
-
-        if(ratio > target_ratio)
-        {
-          draw_w = targetWidth;
-          draw_h = draw_w / ratio;
-        }
-        else
-        {
-          draw_h = targetHeight;
-          draw_w = draw_h * ratio;
-        }
+        draw_safe(x, y, m_scale*ofGetWidth(), m_scale*ofGetHeight());
       }
-
-      draw_safe(x, y, m_scale*draw_w, m_scale*draw_h);
+      else
+        draw_safe(x, y, m_scale*ofImage::getWidth(), m_scale*ofImage::getHeight());
     }
     void draw_safe()
     {
