@@ -70,13 +70,15 @@ void biomedical_display::update()
 void biomedical_display::draw()
 {
   m_draw_fbo.begin();
-  ofClear(ofColor::black);
-  int i=0;
-  for(auto& osc : m_oscillos)
   {
-    osc->draw(0.,float(i)/m_oscillos.size()*render_size.y,
-             render_size.x,float(render_size.y)/m_oscillos.size());
-    i++;
+    ofClear(ofColor::black);
+    int i=0;
+    for(auto& osc : m_oscillos)
+    {
+      osc->draw(0.,float(i)/m_oscillos.size()*render_size.y,
+                render_size.x,float(render_size.y)/m_oscillos.size());
+      i++;
+    }
     m_texts.draw();
   }
   m_draw_fbo.end();
