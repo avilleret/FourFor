@@ -183,9 +183,9 @@ void video_player::setup()
       }
     }
   }
-  auto n = m_server.get_root_node().find_child("image.1");
-  n.find_child("load").set_value("sop1.png");
-  n.find_child("scale").set_value(0.2);
+//  auto n = m_server.get_root_node().find_child("image.1");
+//  n.find_child("load").set_value("sop1.png");
+//  n.find_child("scale").set_value(0.2);
 
   /*
   n = m_server.get_root_node().find_child("image.1").find_child("load");
