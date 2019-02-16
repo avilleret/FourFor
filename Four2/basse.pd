@@ -107,7 +107,7 @@
 #X msg 1341 232 11;
 #X obj 21 11 r clock;
 #X obj 741 310 t f f;
-#X obj 798 314 outlet;
+#X obj 1186 557 outlet;
 #X obj 355 434 == 1;
 #X obj 355 457 player basse/F2-gueu;
 #X obj 495 434 == 3;

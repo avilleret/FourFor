@@ -111,7 +111,7 @@
 #X obj 101 11 r clock;
 #X obj 306 424 == 1;
 #X obj 701 330 t f f;
-#X obj 766 341 outlet;
+#X obj 1052 500 outlet;
 #X obj 306 449 player tenor/A3-heu;
 #X obj 436 449 player tenor/C4;
 #X obj 546 449 player tenor/D4;

@@ -56,7 +56,7 @@
 #X msg 751 236 6;
 #X obj 101 11 r clock;
 #X obj 158 477 player soprano/F4;
-#X obj 381 372 outlet;
+#X obj 628 546 outlet;
 #X obj 341 312 t f f;
 #X obj 158 454 == 1;
 #X obj 278 454 == 3;

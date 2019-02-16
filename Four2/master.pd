@@ -1,4 +1,4 @@
-#N canvas 441 520 700 475 10;
+#N canvas 441 191 700 475 10;
 #X obj 327 220 soprano;
 #X obj 507 220 basse;
 #X obj 387 220 alto;
@@ -37,7 +37,7 @@
 #X obj 414 89 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 56 241 ø.remote image.0/position;
-#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
 #X obj 29 100 del 100;
 #X obj 29 296 ø.remote clock/position;
@@ -75,7 +75,7 @@
 #X obj 507 262 ø.remote image.3/load;
 #X obj 411 360 clone soprano 16;
 #X obj 513 360 clone alto 16;
-#X obj 513 380 clone basse 16;
+#X obj 513 379 clone basse 16;
 #X obj 411 380 clone tenor 16;
 #X obj 245 154 ossia.client;
 #N canvas 0 50 830 270 make_sample_list 0;
@@ -188,7 +188,7 @@
 #X connect 13 0 9 1;
 #X connect 14 0 6 0;
 #X restore 61 314 pd make_symbol;
-#N canvas 334 679 470 540 clock 0;
+#N canvas 334 238 470 540 clock 0;
 #X obj 119 305 timer;
 #X obj 100 204 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
@@ -198,8 +198,7 @@
 #X obj 210 247 s init;
 #X obj 100 224 t f b b;
 #X obj 119 418 s clock;
-#X obj 181 396 < 420;
-#X obj 181 419 change;
+#X obj 181 356 < 420;
 #X obj 119 328 +;
 #X obj 119 350 f;
 #X obj 100 272 t b b;
@@ -217,44 +216,50 @@
 #X obj 126 85 ø.parameter Four2:/play @type bool;
 #X obj 151 458 ø.parameter Four2:/clock @unit s;
 #X obj 234 179 loadbang;
-#X connect 0 0 10 0;
+#X obj 181 419 sel 0;
+#X obj 181 377 change 1;
+#X msg 150 43 1;
+#X connect 0 0 9 0;
 #X connect 1 0 6 0;
 #X connect 2 0 3 0;
 #X connect 2 0 8 0;
 #X connect 3 0 7 0;
-#X connect 3 0 18 0;
-#X connect 3 0 25 0;
-#X connect 4 0 12 0;
+#X connect 3 0 17 0;
+#X connect 3 0 24 0;
+#X connect 4 0 11 0;
 #X connect 6 0 4 0;
 #X connect 6 1 0 0;
-#X connect 8 0 9 0;
-#X connect 9 0 20 0;
-#X connect 10 0 11 0;
-#X connect 11 0 10 1;
-#X connect 11 0 2 0;
-#X connect 12 0 0 0;
-#X connect 12 1 0 1;
-#X connect 13 0 11 0;
-#X connect 14 0 15 0;
-#X connect 15 0 5 0;
-#X connect 15 1 13 0;
-#X connect 16 0 25 0;
-#X connect 17 0 20 0;
-#X connect 19 0 10 1;
-#X connect 20 0 6 0;
-#X connect 20 1 24 0;
-#X connect 22 0 23 0;
-#X connect 23 0 15 0;
-#X connect 23 1 21 0;
-#X connect 24 0 6 0;
-#X connect 26 0 14 0;
+#X connect 8 0 27 0;
+#X connect 9 0 10 0;
+#X connect 10 0 9 1;
+#X connect 10 0 2 0;
+#X connect 11 0 0 0;
+#X connect 11 1 0 1;
+#X connect 12 0 10 0;
+#X connect 13 0 14 0;
+#X connect 14 0 5 0;
+#X connect 14 1 12 0;
+#X connect 15 0 24 0;
+#X connect 16 0 19 0;
+#X connect 18 0 9 1;
+#X connect 19 0 6 0;
+#X connect 19 1 23 0;
+#X connect 21 0 22 0;
+#X connect 22 0 14 0;
+#X connect 22 1 20 0;
+#X connect 23 0 6 0;
+#X connect 25 0 13 0;
+#X connect 27 0 26 0;
+#X connect 28 0 19 0;
 #X restore 61 289 pd clock;
-#X obj 61 257 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 61 257 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label 7'00" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 11'30" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 365 \; clock_label label \$1;
-#X obj 431 442 dac~ 1 2 3 4;
+#X obj 432 455 dac~ 3 4;
+#X obj 507 420 *~ 0.1;
+#X obj 377 420 *~ 0.1;
 #X connect 0 1 4 0;
 #X connect 1 1 21 0;
 #X connect 2 1 20 0;
@@ -263,10 +268,10 @@
 #X connect 5 0 7 0;
 #X connect 7 0 17 0;
 #X connect 9 0 7 0;
-#X connect 13 0 35 0;
-#X connect 14 0 35 1;
-#X connect 15 0 35 3;
-#X connect 16 0 35 2;
+#X connect 13 0 37 0;
+#X connect 14 0 37 0;
+#X connect 15 0 36 0;
+#X connect 16 0 36 0;
 #X connect 17 0 6 0;
 #X connect 17 0 9 0;
 #X connect 20 0 10 0;
@@ -280,3 +285,5 @@
 #X connect 30 0 34 0;
 #X connect 31 0 30 0;
 #X connect 32 0 31 0;
+#X connect 36 0 35 1;
+#X connect 37 0 35 0;

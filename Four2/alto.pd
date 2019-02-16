@@ -71,7 +71,7 @@
 #X msg 701 232 5;
 #X obj 101 11 r clock;
 #X obj 461 302 t f f;
-#X obj 531 345 outlet;
+#X obj 696 488 outlet;
 #X obj 86 394 == 1;
 #X obj 86 419 player alto/D4-N;
 #X obj 206 394 == 3;
