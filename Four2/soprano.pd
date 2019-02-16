@@ -1,4 +1,4 @@
-#N canvas 52 102 862 676 10;
+#N canvas 225 48 862 676 10;
 #X obj 101 134 moses;
 #X obj 128 65 r init;
 #X obj 128 88 randomf 60;
