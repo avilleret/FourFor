@@ -21,3 +21,9 @@ Software for FourFor show
 
 # Quickly display image on RPi
     sudo fbi -d /dev/fb0 -T 1 -a il1.jpg
+
+# Batch resize jpg
+
+	for img in alto*.jpg; do convert $img -resize 1920x1080 $img; done
+	for img in tenor*.jpg; do convert $img -resize 1920x1080 $img; done
+	for img in basse*.jpg; do convert $img -resize 1920x1080 $img; done
