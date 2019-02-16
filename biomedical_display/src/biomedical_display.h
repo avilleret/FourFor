@@ -6,7 +6,9 @@
 #include <ossia-cpp/ossia-cpp98.hpp>
 #include "OssiaText.h"
 #include "OssiaShader.h"
+#include "SafeImage.h"
 
+#define NUM_IMG 1
 class biomedical_display : public ofBaseApp
 {
   public:
@@ -32,6 +34,8 @@ class biomedical_display : public ofBaseApp
     ofFbo m_prev;
 
     OssiaMultiText m_texts;
+
+    safe_image m_images[NUM_IMG];
 
     ofVec2f render_size;
 };

@@ -43,7 +43,7 @@ class safe_image : public ofImage,
       }
     }
 
-    opp::value::vec2f m_position;
+    opp::value::vec2f m_position{0.,0.};
     std::atomic<float> m_scale{1.};
     std::atomic<bool> m_enable{true};
     std::atomic<bool> m_changed{false};

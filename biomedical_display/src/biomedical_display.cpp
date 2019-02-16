@@ -56,6 +56,70 @@ void biomedical_display::setup()
     }
     i++;
   }
+
+  {
+    for(int i=0; i<NUM_IMG; i++)
+    {
+      auto root = m_server.get_root_node().create_void("image.1");
+      {
+        auto n = root.create_string("load");
+        n.set_value_callback(
+              [](void* context, const opp::value& v){
+          safe_image* im = static_cast<safe_image*>(context);
+          auto s = v.to_string();
+          im->lock();
+          im->m_file = s;
+          ofLogNotice() << "try to load " << s;
+          im->m_changed = true;
+          im->unlock();
+        }, &m_images[i]);
+      }
+      {
+        auto n = root.create_vec2f("position");
+        n.set_value_callback(
+              [](void* context, const opp::value& v){
+          safe_image* im = static_cast<safe_image*>(context);
+          auto vec = v.to_vec2f();
+          im->lock();
+          im->m_position=vec;
+          im->unlock();
+        }, &m_images[i]);
+      }
+      {
+        auto n = root.create_float("scale");
+        n.set_value(1.);
+        n.set_value_callback(
+              [](void* context, const opp::value& v){
+          safe_image* im = static_cast<safe_image*>(context);
+          auto f = v.to_float();
+          im->lock();
+          im->m_scale=f;
+          im->unlock();
+        }, &m_images[i]);
+      }
+      {
+        auto n = root.create_bool("enable");
+        n.set_value_callback(
+              [](void* context, const opp::value& v){
+          safe_image* im = static_cast<safe_image*>(context);
+          auto b = v.to_bool();
+          im->m_enable = b;
+        }, &m_images[i]);
+      }
+      {
+        auto n = root.create_rgba("color");
+        n.set_value_callback(
+              [](void* context, const opp::value& v){
+          safe_image* im = static_cast<safe_image*>(context);
+          auto vec = v.to_vec4f();
+          im->lock();
+          im->m_color = ofFloatColor(vec[0], vec[1], vec[2], vec[3]);
+          im->unlock();
+        },  &m_images[i]);
+        n.set_value(opp::value::vec4f{1.,1,1.,1.});
+      }
+    }
+  }
 }
 
 void biomedical_display::update()
@@ -65,6 +129,9 @@ void biomedical_display::update()
     // osc->set_value(ofRandomf());
     osc->update();
   }
+
+  for(int i=0; i<NUM_IMG; i++)
+    m_images[i].update();
 }
 
 void biomedical_display::draw()
@@ -80,6 +147,9 @@ void biomedical_display::draw()
       i++;
     }
     m_texts.draw();
+    for(int i = 0; i<NUM_IMG; i++)
+      if(m_images[i].isAllocated())
+        m_images[i].draw_safe();
   }
   m_draw_fbo.end();
 

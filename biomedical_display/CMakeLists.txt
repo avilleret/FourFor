@@ -8,7 +8,9 @@ include(${OF_ROOT}/openFrameworks.cmake)
 ofxaddon(ofxShadertoy)
 ofxaddon(ofxFatLines)
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/../common/src)
+include_directories(
+  ${CMAKE_CURRENT_LIST_DIR}/../common/src
+  ${CMAKE_CURRENT_LIST_DIR}/../video_player/src)
 
 set(SOURCES
     src/main.cpp
@@ -23,6 +25,7 @@ set(HEADERS
     src/oscilloscope.h
     ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaText.h
     ${CMAKE_CURRENT_LIST_DIR}/../common/src/OssiaShader.h
+    ${CMAKE_CURRENT_LIST_DIR}/../video_player/src/SafeImage.h
 )
 
 add_executable(
