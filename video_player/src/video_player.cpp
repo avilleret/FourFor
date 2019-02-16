@@ -207,7 +207,7 @@ void video_player::setup()
   ofLogNotice() << "fbo resolution: " << m_draw_fbo.getWidth() << "x" << m_draw_fbo.getHeight();
 
   // m_server.get_root_node().load_preset(m_server.get_name() + ".txt");
-
+/*
   auto node=m_server.get_root_node().create_void("preset");
   {
     auto n = node.create_impulse("save");
@@ -228,6 +228,7 @@ void video_player::setup()
       ptr->m_server.get_root_node().load_preset(ofToDataPath(filename, true));
     }, this);
   }
+*/
 }
 
 void video_player::update()
