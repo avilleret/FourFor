@@ -60,8 +60,8 @@ void main()
     mediump float newTime = time * freq;
 
     vec2 newTexCoord = texcoord0;
-    newTexCoord.s = texcoord0.s + (cos(newTime + (texcoord0.s*20.0)) * 0.01);
-    newTexCoord.t = texcoord0.t + (sin(newTime + (texcoord0.t*20.0)) * 0.01);
+    newTexCoord.s = texcoord0.s + (cos(newTime + (texcoord0.s*20.0*freq)) * 0.01*amplitude);
+    newTexCoord.t = texcoord0.t + (sin(newTime + (texcoord0.t*20.0*freq)) * 0.01*amplitude);
 
     mediump vec2 texCoordRed    = newTexCoord;
     mediump vec2 texCoordGreen  = newTexCoord;

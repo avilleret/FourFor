@@ -2,6 +2,8 @@
 #include <ossia/network/base/node.hpp>
 #include <ossia/network/base/parameter.hpp>
 
+const float pi = 3.14159265358979323846;
+
 OssiaShader::OssiaShader(const opp::node& root)
   : m_root(root)
 {
@@ -82,7 +84,7 @@ void OssiaShader::load(const std::string& file)
 void OssiaShader::begin()
 {
   ofShader::begin();
-  setUniform1f("time", ofGetElapsedTimef());
+  setUniform1f("time", ofGetElapsedTimef()*2*pi);
   setUniform2f("resolution", ofGetWidth(), ofGetHeight());
 
   m_uniform_mutex.lock();
