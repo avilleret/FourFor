@@ -38,7 +38,7 @@ class safe_image : public ofImage,
         if(load(std::string("images/" + m_file)))
         {
           ofLogNotice() << "load " << m_file;
-          m_enable=true;
+          //m_enable=true;
         }
         else
         {
