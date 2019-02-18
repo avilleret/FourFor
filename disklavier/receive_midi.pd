@@ -1,8 +1,8 @@
-#N canvas 574 584 240 325 10;
+#N canvas 574 453 240 325 10;
 #X obj 16 5 midiin;
 #X obj 16 147 netsend -u;
 #X obj 24 101 loadbang;
-#X obj 16 291 midiout;
+#X obj 16 251 midiout;
 #X obj 16 28 list prepend send;
 #X obj 16 51 list trim;
 #X msg 96 101 disconnect;
@@ -11,13 +11,23 @@
 #X obj 16 74 spigot;
 #X obj 16 170 sel 0;
 #X msg 24 124 connect 192.168.32.255 5657;
-#X obj 16 268 netreceive -u 5656;
-#X obj 114 200 print;
+#X obj 16 228 netreceive -u 5656;
+#X obj 73 270 spigot;
+#X obj 106 250 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 73 291 print received-midi;
+#X obj 100 173 spigot;
+#X obj 133 153 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 100 194 print received-midi;
+#X obj 67 181 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
 #X connect 0 0 4 0;
 #X connect 1 0 10 0;
 #X connect 2 0 11 0;
 #X connect 4 0 5 0;
 #X connect 5 0 9 0;
+#X connect 5 0 16 0;
 #X connect 6 0 1 0;
 #X connect 7 0 4 0;
 #X connect 8 0 6 0;
@@ -27,3 +37,7 @@
 #X connect 11 0 1 0;
 #X connect 12 0 3 0;
 #X connect 12 0 13 0;
+#X connect 13 0 15 0;
+#X connect 14 0 13 1;
+#X connect 16 0 18 0;
+#X connect 17 0 16 1;
