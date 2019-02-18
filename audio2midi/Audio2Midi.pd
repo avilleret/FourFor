@@ -1,4 +1,4 @@
-#N canvas 508 117 508 598 10;
+#N canvas 682 84 508 598 10;
 #X obj 127 143 constantq~;
 #X obj 186 6 loadbang;
 #N canvas 0 22 450 300 (subpatch) 0;
@@ -25,7 +25,7 @@
 #X floatatom 261 318 5 0 0 0 - - -;
 #X floatatom 283 370 5 0 0 0 - - -;
 #X floatatom 204 352 5 0 0 0 - - -;
-#X obj 183 189 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 183 189 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
 #X obj 54 81 readsf~;
 #X obj 30 156 dac~ 1 2;
