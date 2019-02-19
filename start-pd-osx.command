@@ -29,5 +29,10 @@ cd "${HERE}/disklavier"
 
 sleep 0.5
 
+cd "${HERE}/midiplayer"
+  /Applications/Pd-0.49-1.app/Contents/Resources/bin/pd -noaudio midiplayer.pd &
+
+sleep 0.5
+
 cd "${HERE}/audio2midi"
   python -m SimpleHTTPServer 8080
