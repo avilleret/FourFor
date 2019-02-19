@@ -21,7 +21,7 @@ AbstractText::AbstractText(const opp::node& root)
     auto n = m_root.create_string("text");
     n.set_value_callback([](void* ctx, const opp::value& v)
     {
-      OssiaText* ptr = static_cast<OssiaText*>(ctx);
+      AbstractText* ptr = static_cast<AbstractText*>(ctx);
       auto s = v.to_string();
       ptr->set_text(s);
     }, this);
