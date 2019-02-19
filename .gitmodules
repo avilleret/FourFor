@@ -10,3 +10,6 @@
 [submodule "biomedical_display/ofxFatLines"]
 	path = biomedical_display/ofxFatLines
 	url = https://github.com/avilleret/ofxFatLines.git
+[submodule "mrpeach"]
+	path = mrpeach
+	url = https://github.com/avilleret/mrpeach.git
