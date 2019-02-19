@@ -1,0 +1,37 @@
+#N canvas 66 171 423 405 10;
+#X obj 95 49 ossia.parameter load @type string;
+#X obj 100 228 mrpeach/midifile;
+#X obj 100 114 symbol;
+#X obj 145 155 ggee/getdir;
+#X obj 100 175 pack s s;
+#X obj 145 135 loadbang;
+#X obj 214 114 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 214 114 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 229 182 print;
+#X msg 100 200 read \$2/MIDI_samples/\$1;
+#X obj 19 29 tgl 45 0 empty empty play -45 23 0 12 -24198 -1 -258699
+1 1;
+#X obj 19 81 metro 2;
+#X obj 100 306 midiout;
+#X msg 100 93 2/1.mid;
+#X msg 183 78 test.mid;
+#X obj 289 268 ctlout 123;
+#X msg 289 238 123;
+#X obj 289 210 bng 15 250 50 0 empty empty all_notes_off 17 7 0 10
+-258113 -257985 -1;
+#X connect 1 0 12 0;
+#X connect 2 0 4 0;
+#X connect 3 0 4 1;
+#X connect 3 0 8 0;
+#X connect 4 0 9 0;
+#X connect 5 0 3 0;
+#X connect 6 0 3 0;
+#X connect 9 0 1 0;
+#X connect 10 0 11 0;
+#X connect 11 0 1 0;
+#X connect 13 0 2 0;
+#X connect 14 0 2 0;
+#X connect 16 0 15 0;
+#X connect 17 0 16 0;
