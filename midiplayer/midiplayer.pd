@@ -1,5 +1,5 @@
 #N canvas 123 204 543 405 10;
-#X obj 266 45 ossia.parameter load @type string;
+#X obj 256 -5 ossia.parameter load @type string;
 #X obj 260 114 symbol;
 #X obj 305 155 ggee/getdir;
 #X obj 260 175 pack s s;
@@ -13,8 +13,8 @@
 #X obj 79 29 tgl 45 0 empty empty play -45 23 0 12 -24198 -1 -258699
 0 1;
 #X obj 97 356 midiout;
-#X msg 260 93 2/1.mid;
-#X msg 343 78 test.mid;
+#X msg 255 72 2/1.mid;
+#X msg 446 133 test.mid;
 #X obj 449 268 ctlout 123;
 #X msg 449 238 123;
 #X obj 449 210 bng 15 250 50 0 empty empty all_notes_off 17 7 0 10
@@ -98,6 +98,7 @@
 -1;
 #X msg 173 65 1e+06;
 #X obj 138 262 route bang;
+#X obj 142 291 outlet;
 #X connect 0 0 3 0;
 #X connect 1 0 13 0;
 #X connect 1 2 5 0;
@@ -119,6 +120,7 @@
 #X connect 15 0 0 0;
 #X connect 16 0 0 0;
 #X connect 17 0 2 0;
+#X connect 18 0 19 0;
 #X restore 97 332 pd midifile;
 #X obj 79 165 timer;
 #X obj 79 124 t b b;
@@ -133,6 +135,9 @@
 #X obj 241 138 t b a b;
 #X msg 148 -10 0;
 #X msg 118 -12 1;
+#X msg 315 72 2/2.mid;
+#X msg 377 71 1/3.mid;
+#X msg 436 72 1/4.mid;
 #X connect 1 0 27 0;
 #X connect 2 0 3 1;
 #X connect 2 0 7 0;
@@ -146,6 +151,7 @@
 #X connect 14 0 13 0;
 #X connect 15 0 14 0;
 #X connect 16 0 10 0;
+#X connect 16 1 28 0;
 #X connect 17 0 23 0;
 #X connect 18 0 17 0;
 #X connect 18 1 17 1;
@@ -165,3 +171,6 @@
 #X connect 27 2 28 0;
 #X connect 28 0 9 0;
 #X connect 29 0 9 0;
+#X connect 30 0 1 0;
+#X connect 31 0 1 0;
+#X connect 32 0 1 0;
