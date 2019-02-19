@@ -89,7 +89,7 @@ void Oscilloscope::draw(float x, float y, float w, float h)
   ofPushStyle();
   ofPushMatrix();
   ofTranslate(x,y);
-  ofVec2f scale(w-h*1.3,h);
+  ofVec2f scale(w-h*1.5,h);
   //ofScale(float(w-h)/float(m_buffer.size()),h);
 
   m_mutex.lock();

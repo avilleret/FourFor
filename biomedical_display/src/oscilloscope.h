@@ -40,6 +40,6 @@ class Oscilloscope {
     std::size_t m_size{64};
 
     opp::node m_root;
-    int m_vbar_width=20;
+    int m_vbar_width{5};
 
 };

@@ -15,7 +15,7 @@ void biomedical_display::setup()
 
   auto root = m_server.get_root_node();
 
-  for(int i=0; i<3; i++)
+  for(int i=0; i<4; i++)
   {
     m_oscillos.push_back(std::make_shared<Oscilloscope>(root.create_void("oscillo.1")));
   }
@@ -23,6 +23,8 @@ void biomedical_display::setup()
   m_oscillos[0]->set_color(ofColor::green);
   m_oscillos[1]->set_color(ofColor::yellow);
   m_oscillos[2]->set_color(ofColor::aqua);
+  m_oscillos[3]->set_color(ofColor::red);
+
 
   ofResizeEventArgs size(ofGetWidth(), ofGetHeight());
   windowResized(size);
@@ -36,14 +38,14 @@ void biomedical_display::setup()
   }
 
   int i=0;
-  vector<pair<string, string>> txts = {{"83.4", "bpm"}, {"22.4", "cpm"}, {"92%", "SpO2"}};
-  for(auto& c : {ofColor::green, ofColor::yellow, ofColor::aqua})
+  vector<pair<string, string>> txts = {{"83.4", "bpm"}, {"22.4", "cpm"}, {"92%", "SpO2"}, {"634", "ppm"}};
+  for(auto& c : {ofColor::green, ofColor::yellow, ofColor::aqua, ofColor::red})
   {
     {
       auto& txt = m_texts.add(m_server.get_root_node().create_void("number.1"));
       txt.set_color(c);
       txt.set_scale(0.8);
-      txt.set_position(ofVec2f(render_size.x-250., 120.+i*render_size.y/m_oscillos.size()));
+      txt.set_position(ofVec2f(render_size.x-230., 90.+i*render_size.y/m_oscillos.size()));
       txt.set_text(txts[i].first);
     }
 
@@ -51,7 +53,7 @@ void biomedical_display::setup()
       auto& txt = m_texts.add(m_server.get_root_node().create_void("label.1"));
       txt.set_color(c);
       txt.set_scale(0.2);
-      txt.set_position(ofVec2f(render_size.x-80., 150.+i*render_size.y/m_oscillos.size()));
+      txt.set_position(ofVec2f(render_size.x-80., 120.+i*render_size.y/m_oscillos.size()));
       txt.set_text(txts[i].second);
     }
     i++;
