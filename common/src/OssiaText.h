@@ -45,5 +45,5 @@ class OssiaMultiText : public ofTrueTypeFont
     OssiaText& get_ossia_text(const std::string& name);
 
   private:
-    std::vector<std::unique_ptr<AbstractText>> m_texts;
+    std::vector<std::shared_ptr<AbstractText>> m_texts;
 };

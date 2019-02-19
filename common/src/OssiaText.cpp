@@ -22,7 +22,15 @@ AbstractText::AbstractText(const opp::node& root)
     n.set_value_callback([](void* ctx, const opp::value& v)
     {
       AbstractText* ptr = static_cast<AbstractText*>(ctx);
-      auto s = v.to_string();
+      std::string s;
+      if(v.is_string())
+        s = v.to_string();
+      else
+      {
+        stringstream ss;
+        ss.precision(1);
+        s=ss.str();
+      }
       ptr->set_text(s);
     }, this);
   }
@@ -127,7 +135,7 @@ OssiaMultiText::OssiaMultiText()
 
 AbstractText& OssiaMultiText::add(const opp::node& root)
 {
-  m_texts.push_back(std::make_unique<AbstractText>(root));
+  m_texts.push_back(std::make_shared<AbstractText>(root));
   return *m_texts.back();
 }
 
