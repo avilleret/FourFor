@@ -1,4 +1,5 @@
 #N canvas 569 49 530 623 10;
+#X declare -lib ossia;
 #X obj 355 7 ECG;
 #X obj 380 7 breath;
 #N canvas 0 50 450 250 (subpatch) 0;
@@ -280,6 +281,7 @@
 #X obj 67 101 fill_sample_list breath;
 #X restore 377 73 pd make_sample_list;
 #X obj 367 49 dac~ 8;
+#X obj 415 36 declare -lib ossia;
 #X connect 0 0 13 0;
 #X connect 1 0 13 0;
 #X connect 5 0 8 0;
