@@ -1,5 +1,6 @@
 [Unit]
 Description="RTP Midi service"
+After=tlp-init.service
 
 [Service]
 ExecStart=/opt/FourFor/disklavier/start.sh
