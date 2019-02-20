@@ -1,0 +1,28 @@
+#N canvas 1274 418 380 370 10;
+#X obj 76 96 noise~;
+#X obj 206 219 ø.model random;
+#X obj 76 124 lop~ 3;
+#X obj 76 147 lop~ 3;
+#X obj 76 170 lop~ 3;
+#X obj 76 313 snapshot~;
+#X obj 101 284 metro 10;
+#X obj 101 264 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 101 244 loadbang;
+#X obj 76 335 ø.parameter out @type float;
+#X floatatom 136 93 5 0 0 0 - - -;
+#X obj 76 193 *~ 20;
+#X obj 136 70 ø.parameter cutoff @unit Hz @default 1;
+#X connect 0 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 11 0;
+#X connect 5 0 9 0;
+#X connect 6 0 5 0;
+#X connect 7 0 6 0;
+#X connect 8 0 7 0;
+#X connect 10 0 2 1;
+#X connect 10 0 3 1;
+#X connect 10 0 4 1;
+#X connect 11 0 5 0;
+#X connect 12 0 10 0;
