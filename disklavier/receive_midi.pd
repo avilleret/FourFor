@@ -35,9 +35,9 @@
 #X connect 3 0 4 0;
 #X connect 5 0 2 0;
 #X restore 53 408 pd midisettings;
-#N canvas 0 23 450 300 filter 1;
+#N canvas 0 23 450 300 filter 0;
 #X obj 159 173 midiparse, f 33;
-#N canvas 8 116 644 418 delay_noteoff 1;
+#N canvas 8 116 644 418 delay_noteoff 0;
 #X obj 129 58 inlet;
 #X obj 127 325 outlet;
 #X obj 129 79 t a a;
