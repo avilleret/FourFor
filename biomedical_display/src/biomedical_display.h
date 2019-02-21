@@ -8,7 +8,7 @@
 #include "OssiaShader.h"
 #include "SafeImage.h"
 
-#define NUM_IMG 1
+#define NUM_IMG 2
 class biomedical_display : public ofBaseApp
 {
   public:
