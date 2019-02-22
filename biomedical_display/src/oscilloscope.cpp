@@ -33,7 +33,7 @@ Oscilloscope::Oscilloscope(const opp::node& root)
     n.set_value_callback(
           [](void* context, const opp::value& v){
       Oscilloscope* osc = (Oscilloscope*) context;
-      auto f = v.to_float();
+      auto f = 1. - v.to_float();
       osc->set_value(f);
     }, this);
   }
