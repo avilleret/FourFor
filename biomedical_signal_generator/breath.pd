@@ -132,15 +132,16 @@
 #X connect 15 0 0 0;
 #X restore 75 197 pd jitter;
 #X floatatom 76 47 5 0 0 0 - - -;
-#N canvas 0 50 450 300 audio/gain 0;
+#N canvas 0 50 687 374 audio/gain 1;
 #X obj 113 200 outlet~;
 #X obj 146 75 + 100;
 #X obj 146 98 dbtorms;
 #X msg 146 121 \$1 10;
 #X obj 146 144 line~;
-#X obj 113 22 inlet~;
+#X obj 113 12 inlet~;
 #X obj 113 177 *~;
-#X obj 146 52 ø.param audio/gain @unit dB @default -24;
+#X obj 146 42 ø.param audio/gain @unit dB @default -24 @range -96
+-12 @clip both;
 #X connect 1 0 2 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
