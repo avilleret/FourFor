@@ -195,7 +195,7 @@
 #X restore 61 229 pd clock;
 #X obj 61 197 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label -1'-1-9" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 7'00" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 305 \; clock_label label \$1;
 #X obj 507 438 *~ 0.1;
@@ -437,7 +437,7 @@
 #X connect 4 0 3 0;
 #X connect 6 0 4 0;
 #X restore 243 48 pd irm-client;
-#N canvas 492 362 376 255 tv-client 1;
+#N canvas 492 362 376 255 tv-client 0;
 #X obj 55 56 loadbang;
 #N canvas 584 187 393 481 init 0;
 #X obj 29 4 inlet;
