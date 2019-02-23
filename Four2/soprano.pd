@@ -1,4 +1,4 @@
-#N canvas 225 48 862 676 10;
+#N canvas 418 102 862 676 10;
 #X obj 101 134 moses;
 #X obj 128 65 r init;
 #X obj 128 88 randomf 60;
@@ -64,6 +64,8 @@
 #X obj 398 454 == 5;
 #X obj 398 477 player soprano/F5;
 #X obj 329 565 outlet~;
+#X floatatom 379 372 5 0 0 0 - - -;
+#X floatatom 61 44 5 0 0 0 - - -;
 #X connect 0 0 47 0;
 #X connect 0 1 3 0;
 #X connect 1 0 2 0;
@@ -114,11 +116,13 @@
 #X connect 53 0 58 0;
 #X connect 54 0 58 0;
 #X connect 55 0 0 0;
+#X connect 55 0 66 0;
 #X connect 56 0 64 0;
 #X connect 58 0 59 0;
 #X connect 58 0 60 0;
 #X connect 58 0 62 0;
 #X connect 58 1 57 0;
+#X connect 58 1 65 0;
 #X connect 59 0 56 0;
 #X connect 60 0 61 0;
 #X connect 61 0 64 0;
