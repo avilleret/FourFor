@@ -198,9 +198,9 @@
 #X connect 36 0 17 0;
 #X connect 37 0 8 1;
 #X restore 61 229 pd clock;
-#X obj 38 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 38 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label 6'42" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 7'00" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 305 \; clock_label label \$1;
 #X obj 507 438 *~ 0.1;
@@ -707,6 +707,8 @@
 #X connect 2 0 3 0;
 #X connect 3 0 1 0;
 #X restore 549 12 pd audio-config;
+#X obj 418 171 symbol;
+#X msg 418 150 cartels/four2.jpg;
 #X connect 0 1 43 0;
 #X connect 1 1 46 0;
 #X connect 2 1 44 0;
@@ -738,7 +740,7 @@
 #X connect 31 0 29 0;
 #X connect 32 0 31 0;
 #X connect 33 0 29 0;
-#X connect 34 0 44 0;
+#X connect 34 0 68 0;
 #X connect 35 0 46 0;
 #X connect 36 0 45 0;
 #X connect 37 0 43 0;
@@ -759,3 +761,5 @@
 #X connect 54 0 56 1;
 #X connect 55 0 58 0;
 #X connect 64 0 63 0;
+#X connect 67 0 41 0;
+#X connect 68 0 67 0;

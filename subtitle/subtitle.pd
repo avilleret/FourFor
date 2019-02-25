@@ -1,18 +1,18 @@
-#N canvas 242 384 894 374 10;
+#N canvas 234 183 1046 502 10;
 #X declare -lib ossia;
 #X obj 10 19 notein;
-#N canvas 0 23 236 330 itw 0;
+#N canvas 0 23 236 330 itw 1;
 #X obj 78 77 inlet;
 #X obj 78 223 outlet;
 #X obj 78 198 symbol;
 #X msg 78 177 itw/\$1.jpeg;
-#X obj 78 155 moses 33;
 #X obj 78 112 moses 1;
-#X connect 0 0 5 0;
+#X obj 78 155 moses 34;
+#X connect 0 0 4 0;
 #X connect 2 0 1 0;
 #X connect 3 0 2 0;
-#X connect 4 0 3 0;
-#X connect 5 1 4 0;
+#X connect 4 1 5 0;
+#X connect 5 0 3 0;
 #X restore 10 91 pd itw;
 #X obj 10 44 stripnote;
 #X obj 37 142 ossia.remote cartel:/image.1/load;
@@ -54,7 +54,7 @@
 #X text 102 67 midi out : to_live;
 #X obj 10 112 t b a;
 #X obj 36 336 declare -lib ossia;
-#X obj 455 319 ../common/selectMidiDevice disklavier_from_live disklavier_to_live
+#X obj 345 311 ../common/selectMidiDevice disklavier_from_live disklavier_to_live
 ;
 #N canvas 0 23 236 330 experiences 0;
 #X obj 78 77 inlet;
@@ -94,6 +94,19 @@
 #X obj 537 150 ossia.parameter live-bridge:/palais_de_mari @type bool
 ;
 #X obj 577 170 ossia.parameter live-bridge:/itw @type bool;
+#X obj 617 211 sel 1;
+#X msg 617 230 9;
+#X obj 617 190 ossia.parameter live-bridge:/jetsun2 @type bool;
+#X obj 696 285 mrpeach/packOSC;
+#X obj 696 358 udpsend;
+#X obj 696 378 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X obj 721 308 loadbang;
+#X msg 696 264 /seq/go 1;
+#X obj 696 223 ossia.parameter live-bridge:/light-go @type bool;
+#X obj 696 244 sel 1;
+#X msg 763 352 disconnect;
+#X msg 721 330 connect 192.168.32.17 7000;
 #X connect 0 0 2 0;
 #X connect 0 1 2 1;
 #X connect 1 0 22 0;
@@ -133,3 +146,14 @@
 #X connect 41 0 28 0;
 #X connect 42 0 27 0;
 #X connect 43 0 26 0;
+#X connect 44 0 45 0;
+#X connect 45 0 10 0;
+#X connect 46 0 44 0;
+#X connect 47 0 48 0;
+#X connect 48 0 49 0;
+#X connect 50 0 55 0;
+#X connect 51 0 47 0;
+#X connect 52 0 53 0;
+#X connect 53 0 51 0;
+#X connect 54 0 48 0;
+#X connect 55 0 48 0;
