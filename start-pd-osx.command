@@ -10,9 +10,9 @@ sleep 0.5
 cd "${HERE}/biomedical_signal_generator"
   /Applications/Pd-0.49-1.app/Contents/Resources/bin/pd generator.pd &
 
-sleep 0.5 
-cd "${HERE}/audio2midi"
-  /Applications/Pd-0.49-1-i386.app/Contents/Resources/bin/pd Audio2Midi.pd &
+# sleep 0.5 
+# cd "${HERE}/audio2midi"
+#   /Applications/Pd-0.49-1-i386.app/Contents/Resources/bin/pd Audio2Midi.pd &
 
 sleep 0.5
 cd "${HERE}/villerette"
