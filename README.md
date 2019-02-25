@@ -27,3 +27,7 @@ Software for FourFor show
 	for img in alto*.jpg; do convert $img -resize 1920x1080 $img; done
 	for img in tenor*.jpg; do convert $img -resize 1920x1080 $img; done
 	for img in basse*.jpg; do convert $img -resize 1920x1080 $img; done
+
+# Get crash dump 
+
+    coredumpctl dump > score.dump
