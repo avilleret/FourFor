@@ -1,0 +1,12 @@
+[Unit]
+Description="Lidar service"
+After=tlp-init.service
+
+[Service]
+ExecStart=/opt/FourFor/LidarSlip/ReadUSB.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+

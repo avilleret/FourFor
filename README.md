@@ -15,6 +15,7 @@ Software for FourFor show
 
     ninja install && rsync -hvrPtl  FourFor/ pi@raspberrypi.local:/opt/FourFor
 
+    rsync -hvrPtl LidarSlip pi@lidar.local:/opt/FourFor
 
 # Transcode video for Raspberry Pi
     ffmpeg -i ${file} -vcodec libx264 -profile:v high -preset fast -crf 18 -b-pyramid none -vf scale=-1:720 -acodec ac3 -ab 1536k -scodec copy encoded/${file}
