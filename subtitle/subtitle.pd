@@ -1,7 +1,7 @@
 #N canvas 234 183 1046 502 10;
 #X declare -lib ossia;
 #X obj 10 19 notein;
-#N canvas 0 23 236 330 itw 1;
+#N canvas 0 23 236 330 itw 0;
 #X obj 78 77 inlet;
 #X obj 78 223 outlet;
 #X obj 78 198 symbol;
