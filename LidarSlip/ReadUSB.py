@@ -23,8 +23,12 @@ print("Start reading...")
 
 while True:
 	for ser in serial_ports:
-		# print("read " + ser.port)
-		data = ser.read(128)
-		decoded = decode(data)
-		sock.sendto(decoded, (UDP_IP, UDP_PORT))
-		# print(decoded)
+		try:
+			# print("read " + ser.port)
+			data = ser.read(128)
+			decoded = decode(data)
+			sock.sendto(decoded, (UDP_IP, UDP_PORT))
+			# print(decoded)
+		except:
+			# nothing
+			pass
