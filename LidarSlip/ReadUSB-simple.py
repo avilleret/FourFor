@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from sliplib import decode
+import sliplib
 import serial
 import socket
 import sys
@@ -22,9 +22,16 @@ sock = socket.socket(socket.AF_INET, # Internet
 while True:
 	try:
 		data = ser.read(128)
-		decoded = decode(data)
+		decoded = sliplib.decode(data)
 		sock.sendto(decoded, (UDP_IP, UDP_PORT))
 		# print(decoded)
-	except:
-		# print("error reading " + ser.port)
+	except sliplib.ProtocolError as err:
+		# print("protocol error: {0}".format(err))
 		pass
+	except serial.SerialException as err:
+		print("error reading {0} error: {1}".format(ser.port, err))
+		quit()
+		pass
+	except Exception as err:
+		print("generic error: {0}".format(err))
+		quit()
