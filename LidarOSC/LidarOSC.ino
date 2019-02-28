@@ -15,10 +15,12 @@ const char * networkPswd = "radigue2019!";
 // either use the ip address of the server or 
 // a network broadcast address
 const char * udpAddress = "192.168.32.255";
-const int udpPort = 3338;
+const int udpPort = 3334;
 
-//Are we currently connected?
+//Are we currently connected? pd villerette.pd 
+
 boolean connected = false;
+boolean is_connecting = false;
 
 HardwareSerial Serial1(2);  // UART1/Serial1 pins 16,17
 
@@ -29,9 +31,6 @@ void setup(){
   // Initilize hardware serial:
   Serial.begin(115200);
   Serial1.begin(115200);
-  
-  //Connect to the WiFi network
-  connectToWiFi(networkName, networkPswd);
 }
 
 void loop(){
@@ -64,6 +63,8 @@ void loop(){
                msg_dst.send(udp);
                //udp.printf("distance %d\tStrength%d", distance, strength);
                udp.endPacket();
+            } else if(!is_connecting) {
+               connectToWiFi(networkName, networkPswd);
             }
         }
     }
@@ -74,6 +75,7 @@ void connectToWiFi(const char * ssid, const char * pwd){
 
   // delete old config
   WiFi.disconnect(true);
+  is_connecting = true;
   //register event handler
   WiFi.onEvent(WiFiEvent);
   
@@ -94,10 +96,15 @@ void WiFiEvent(WiFiEvent_t event){
           //This initializes the transfer buffer
           udp.begin(WiFi.localIP(),udpPort);
           connected = true;
+          is_connecting = false;
           break;
       case SYSTEM_EVENT_STA_DISCONNECTED:
           Serial.println("WiFi lost connection");
           connected = false;
+          is_connecting = false;
           break;
+      default:
+          Serial.print("WifiEvent ");
+          Serial.println(event);
     }
 }
