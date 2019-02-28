@@ -1,1 +1,1 @@
-KERNEL=="/dev/ttyUSB*", RUN+="/opt/FourFor/LidarSlip/Read-simple.py $KERNEL"
+ACTION=="add", KERNEL=="ttyUSB*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", RUN+="/opt/FourFor/LidarSlip/ReadUSB-simple.py %k"

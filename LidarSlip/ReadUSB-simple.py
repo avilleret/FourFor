@@ -8,7 +8,7 @@ import sys
 dev="/dev/ttyUSB0"
 
 if len(sys.argv) > 1:
-	dev=sys.argv[1]
+	dev="/dev/"+sys.argv[1]
 
 UDP_IP="192.168.32.13"
 UDP_PORT=5566
