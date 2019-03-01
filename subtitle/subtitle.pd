@@ -39,8 +39,8 @@
 #X connect 1 0 2 0;
 #X connect 2 0 0 0;
 #X restore 71 271 pd device;
-#X obj 258 325 noteout;
-#X obj 258 274 makenote 564 250;
+#X obj 258 405 noteout;
+#X obj 258 354 makenote 564 250;
 #X msg 298 70 1;
 #X msg 337 90 2;
 #X msg 377 110 3;
@@ -54,7 +54,7 @@
 #X text 102 67 midi out : to_live;
 #X obj 10 112 t b a;
 #X obj 36 336 declare -lib ossia;
-#X obj 345 311 ../common/selectMidiDevice disklavier_from_live disklavier_to_live
+#X obj 258 431 ../common/selectMidiDevice disklavier_from_live disklavier_to_live
 ;
 #N canvas 0 23 236 330 experiences 0;
 #X obj 78 77 inlet;
@@ -97,16 +97,25 @@
 #X obj 617 211 sel 1;
 #X msg 617 230 9;
 #X obj 617 190 ossia.parameter live-bridge:/jetsun2 @type bool;
-#X obj 696 285 mrpeach/packOSC;
-#X obj 696 358 udpsend;
-#X obj 696 378 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 696 385 mrpeach/packOSC;
+#X obj 696 458 udpsend;
+#X obj 696 478 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 721 308 loadbang;
-#X msg 696 264 /seq/go 1;
-#X obj 696 223 ossia.parameter live-bridge:/light-go @type bool;
-#X obj 696 244 sel 1;
-#X msg 763 352 disconnect;
-#X msg 721 330 connect 192.168.32.17 7000;
+#X obj 721 408 loadbang;
+#X msg 696 364 /seq/go 1;
+#X obj 696 323 ossia.parameter live-bridge:/light-go @type bool;
+#X obj 696 344 sel 1;
+#X msg 763 452 disconnect;
+#X msg 721 430 connect 192.168.32.17 7000;
+#X obj 657 232 sel 1;
+#X obj 697 253 sel 1;
+#X msg 657 251 10;
+#X msg 697 272 11;
+#X obj 657 211 ossia.parameter live-bridge:/stop_bol @type bool;
+#X obj 697 232 ossia.parameter live-bridge:/stop_exp @type bool;
+#X obj 737 274 sel 1;
+#X msg 737 293 12;
+#X obj 737 253 ossia.parameter live-bridge:/stop_itw @type bool;
 #X connect 0 0 2 0;
 #X connect 0 1 2 1;
 #X connect 1 0 22 0;
@@ -157,3 +166,12 @@
 #X connect 53 0 51 0;
 #X connect 54 0 48 0;
 #X connect 55 0 48 0;
+#X connect 56 0 58 0;
+#X connect 57 0 59 0;
+#X connect 58 0 10 0;
+#X connect 59 0 10 0;
+#X connect 60 0 56 0;
+#X connect 61 0 57 0;
+#X connect 62 0 63 0;
+#X connect 63 0 10 0;
+#X connect 64 0 62 0;
