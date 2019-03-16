@@ -114,7 +114,7 @@
 #X connect 13 0 9 1;
 #X connect 14 0 6 0;
 #X restore 61 254 pd make_symbol;
-#N canvas 691 238 470 540 clock 1;
+#N canvas 691 238 470 540 clock 0;
 #X obj 119 305 timer;
 #X obj 100 204 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
@@ -200,7 +200,7 @@
 #X restore 61 229 pd clock;
 #X obj 38 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label 0'01" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 7'00" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 305 \; clock_label label \$1;
 #X obj 507 438 *~ 0.1;
@@ -244,32 +244,35 @@
 #X obj 652 368 symbol;
 #X msg 645 314 IRM-full.mp4;
 #X obj 652 410 ø.remote video/load;
-#N canvas 0 50 450 300 cartel-client 0;
+#N canvas 0 50 450 300 cartel-client 1;
 #X obj 115 61 loadbang;
-#N canvas 584 142 590 383 init 0;
-#X obj 29 4 inlet;
-#X obj 29 29 route connect;
-#X msg 29 52 \$1;
-#X obj 29 162 t b;
-#X obj 29 77 sel 1 0;
-#X obj 150 137 del 5000;
-#X obj 150 160 outlet;
-#X msg 150 102 stop;
-#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+#N canvas 584 142 358 477 init 1;
+#X obj 32 16 inlet;
+#X obj 32 41 route connect;
+#X msg 32 64 \$1;
+#X obj 32 174 t b;
+#X obj 32 89 sel 1 0;
+#X obj 153 149 del 5000;
+#X obj 153 172 outlet;
+#X msg 153 114 stop;
+#X obj 93 82 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
-#X obj 29 100 del 100;
-#X obj 29 233 ø.remote image.1/scale;
-#X floatatom 29 211 5 0 0 0 - - -;
-#X msg 29 185 0.66;
-#X obj 47 130 r init;
-#X obj 76 189 outlet;
-#X obj 187 241 print, f 6;
-#X msg 187 221 connected to cartel;
-#X obj 39 293 ø.remote image.2/scale;
-#X floatatom 39 272 5 0 0 0 - - -;
-#X obj 81 338 ø.remote image.2/position;
-#X msg 81 317 450 570;
-#X msg 39 252 0.3;
+#X obj 32 112 del 100;
+#X obj 32 245 ø.remote image.1/scale;
+#X floatatom 32 223 5 0 0 0 - - -;
+#X msg 32 197 0.66;
+#X obj 50 142 r init;
+#X obj 79 201 outlet;
+#X obj 190 253 print, f 6;
+#X msg 190 233 connected to cartel;
+#X obj 42 305 ø.remote image.2/scale;
+#X floatatom 42 284 5 0 0 0 - - -;
+#X obj 84 350 ø.remote image.2/position;
+#X msg 84 329 450 570;
+#X msg 42 264 0.3;
+#X obj 16 416 ø.remote image.1/enable;
+#X obj 16 375 del 100;
+#X msg 16 396 1;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
 #X connect 2 0 4 0;
@@ -278,6 +281,7 @@
 #X connect 3 0 14 0;
 #X connect 3 0 21 0;
 #X connect 3 0 20 0;
+#X connect 3 0 23 0;
 #X connect 4 0 9 0;
 #X connect 4 0 16 0;
 #X connect 4 1 5 0;
@@ -291,6 +295,8 @@
 #X connect 18 0 17 0;
 #X connect 20 0 19 0;
 #X connect 21 0 18 0;
+#X connect 23 0 24 0;
+#X connect 24 0 22 0;
 #X restore 98 183 pd init;
 #X msg 134 108 namespace;
 #X obj 115 138 ossia.client cartel 0;
