@@ -1,5 +1,9 @@
 #include "video_player.h"
 
+#ifdef WIRINGPI
+#include <wiringPi.h>
+#endif
+
 video_player::video_player(const std::string& name)
   : m_server(name, 1236, 5680)
   , m_shader(m_server.get_root_node().create_void("shader"))
@@ -186,6 +190,22 @@ void video_player::setup()
       }
     }
   }
+
+#ifdef WIRINGPI
+#define RELAY 7
+  {
+    wiringPiSetup () ;
+    pinMode (RELAY, OUTPUT) ;
+
+    auto n = m_server.get_root_node().create_bool("relay");
+    n.set_value_callback(
+          [](void*, const opp::value& v){
+      auto b = v.to_bool();
+      digitalWrite(RELAY, b);
+    }, nullptr);
+    n.set_critical(true);
+  }
+#endif
 //  auto n = m_server.get_root_node().find_child("image.1");
 //  n.find_child("load").set_value("sop1.png");
 //  n.find_child("scale").set_value(0.2);

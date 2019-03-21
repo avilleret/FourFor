@@ -7,6 +7,16 @@ cmake_minimum_required(VERSION 3.10)
 include(${OF_ROOT}/openFrameworks.cmake)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/../common/src)
 
+find_path(WIRINGPI_INCLUDES wiringPi.h)
+if(WIRINGPI_INCLUDES)
+  find_library(WIRINGPI_LIBRARY wiringPi)
+  if(WIRINGPI_LIBRARY)
+    message(STATUS "Wiring Pi include dir: ${WIRINGPI_INCLUDES}")
+    message(STATUS "Wiring Pi lib: ${WIRINGPI_LIBRARY}")
+    add_definitions(-DWIRINGPI)
+  endif()
+endif()
+
 if(TARGET_ARCH MATCHES arm*)
   ofxaddon(ofxOMXPlayer)
   add_definitions(-DOMXPLAYER)
@@ -48,6 +58,7 @@ if(TARGET_ARCH MATCHES arm*)
       pcre
       libilclient.a
       libvcilcs.a
+      ${WIRINGPI_LIBRARY}
       )
 endif()
 
