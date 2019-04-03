@@ -2,7 +2,7 @@
 
 HERE=`dirname $(readlink -f $0)`
 
-ips=(tv  cartel irm ecg midi raspberrypi)
+ips=(tv  cartel irm ecg midi)
 
 cd ${HERE}/build-rpi
 ninja install
