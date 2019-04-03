@@ -27,6 +27,8 @@ uniform float amplitude;
 uniform float alpha; // temporal feedback amount
 uniform float beta; // scaling factor
 uniform vec2 anchor; // scaling anchor
+uniform float scale; // color scale
+uniform float bias; // color bias
 
 
 //Each shader has one main() function you can use
@@ -81,7 +83,7 @@ void main()
 
     outColor = ((1.-alpha) * outColor + alpha*texture2D(tex1, ghost_coord));
 
-    gl_FragColor = outColor;
+    gl_FragColor = clamp(outColor*scale + bias,0.,1.);
 }
 
 

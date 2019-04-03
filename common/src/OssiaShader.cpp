@@ -77,6 +77,18 @@ void OssiaShader::load(const std::string& file)
         m_uniforms_map[p.first] = opp::value(v);
         m_uniform_mutex.unlock();
       });
+
+      if(p.first == "bias")
+      {
+        ofLogNotice("OssiaShader") << "set parameter bias to 0.";
+        param->push_value(0.);
+      }
+      else if(p.first == "scale")
+      {
+        ofLogNotice("OssiaShader") << "set parameter scale to 1.";
+        param->push_value(1.);
+      }
+
     }
   }
 }
