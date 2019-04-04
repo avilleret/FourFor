@@ -200,7 +200,7 @@
 #X restore 61 229 pd clock;
 #X obj 38 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label 7'00" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 0'00" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 305 \; clock_label label \$1;
 #X obj 507 438 *~ 0.1;
@@ -244,9 +244,9 @@
 #X obj 652 368 symbol;
 #X msg 645 314 IRM-full.mp4;
 #X obj 652 410 ø.remote video/load;
-#N canvas 0 50 450 300 cartel-client 1;
+#N canvas 0 50 450 300 cartel-client 0;
 #X obj 115 61 loadbang;
-#N canvas 584 142 358 477 init 1;
+#N canvas 584 142 358 477 init 0;
 #X obj 32 16 inlet;
 #X obj 32 41 route connect;
 #X msg 32 64 \$1;
@@ -593,7 +593,7 @@
 #X obj 150 137 del 5000;
 #X obj 150 160 outlet;
 #X msg 150 102 stop;
-#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
 #X obj 29 100 del 100;
 #X floatatom 106 253 5 0 0 0 - - -;
@@ -691,10 +691,7 @@
 #X obj 115 209 ø.remote tv:/image.2/load;
 #X connect 0 0 1 0;
 #X connect 1 0 2 0;
-#X connect 2 0 3 0;
 #X connect 2 0 4 0;
-#X connect 2 0 5 0;
-#X connect 2 0 6 0;
 #X restore 41 484 pd chrono2;
 #X obj 257 322 ø.remote tv:/image.1/load;
 #X obj 387 302 ø.remote cartel:/image.1/load;
