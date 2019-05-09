@@ -32,3 +32,10 @@ Software for FourFor show
 # Get crash dump 
 
     coredumpctl dump > score.dump
+
+# Remove audio from videos
+
+    for vid in videos_with_audio/*.mp4; do ffmpeg -i $vid -af "volume=0.0" -vcodec copy videos/${vid##*/}; done
+
+
+NOTE : `${vid##*/}` retains part of $vid after the last `/`.
