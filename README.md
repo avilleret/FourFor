@@ -2,6 +2,28 @@
 
 Software for FourFor show
 
+# Lidar Chaignotte
+
+The Chaignottes are connected to a Raspberry Pi that forward sensor value to the main computer thanks to a python script.
+Unfortunately I didn't take the time to make script starts automatically.
+So one need to `ssh` to the RPi and start the script manually.
+Since there are two sensors, we need 2 ssh sessions (or just one with a screen inside). 
+
+    ssh lidar
+
+The script is inside the `/opt/FourFor/LidarSlip` folder.
+
+    cd /opt/FourFor/LidarSlip
+    
+And the script take USB device as argument.
+Usually it is : 
+
+    ./ReadUSBSimple.py ttyUSB0
+
+and 
+
+    ./ReadUSBSimple.py ttyUSB1
+
 # Compilation
 
     export PATH=/opt/cross-pi-gcc/bin:$PATH
