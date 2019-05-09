@@ -198,9 +198,9 @@
 #X connect 36 0 17 0;
 #X connect 37 0 8 1;
 #X restore 61 229 pd clock;
-#X obj 38 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+#X obj 38 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label 0'00" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 2'18" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 305 \; clock_label label \$1;
 #X obj 507 438 *~ 0.1;
@@ -593,7 +593,7 @@
 #X obj 150 137 del 5000;
 #X obj 150 160 outlet;
 #X msg 150 102 stop;
-#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
+#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
 ;
 #X obj 29 100 del 100;
 #X floatatom 106 253 5 0 0 0 - - -;
