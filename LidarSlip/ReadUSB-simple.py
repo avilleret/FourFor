@@ -11,6 +11,7 @@ if len(sys.argv) > 1:
 	dev="/dev/"+sys.argv[1]
 
 UDP_IP="192.168.32.13"
+#UDP_IP="127.0.0.1"
 UDP_PORT=5566
 
 print("Connecting to " + dev)
@@ -32,6 +33,9 @@ while True:
 		print("error reading {0} error: {1}".format(ser.port, err))
 		quit()
 		pass
+	except socket.error as err:
+	    # print("socket error: {0}".format(err))
+	    pass
 	except Exception as err:
 		print("generic error: {0}".format(err))
 		quit()
