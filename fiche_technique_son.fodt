@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:officeooo="http://openoffice.org/2009/office" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:rpt="http://openoffice.org/2005/report" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2019-01-08T09:58:42.607230979</meta:creation-date><dc:date>2020-09-30T17:29:02.555308339</dc:date><meta:editing-duration>PT7H4M4S</meta:editing-duration><meta:editing-cycles>100</meta:editing-cycles><meta:generator>LibreOffice/6.4.4.2$MacOSX_X86_64 LibreOffice_project/3d775be2011f3886db32dfd395a6a6d1ca2630ff</meta:generator><meta:document-statistic meta:table-count="5" meta:image-count="0" meta:object-count="0" meta:page-count="5" meta:paragraph-count="233" meta:word-count="841" meta:character-count="4181" meta:non-whitespace-character-count="3558"/></office:meta>
+ <office:meta><meta:creation-date>2019-01-08T09:58:42.607230979</meta:creation-date><dc:date>2020-09-30T17:32:12.228185855</dc:date><meta:editing-duration>PT7H7M12S</meta:editing-duration><meta:editing-cycles>102</meta:editing-cycles><meta:generator>LibreOffice/6.4.4.2$MacOSX_X86_64 LibreOffice_project/3d775be2011f3886db32dfd395a6a6d1ca2630ff</meta:generator><meta:document-statistic meta:table-count="5" meta:image-count="0" meta:object-count="0" meta:page-count="5" meta:paragraph-count="233" meta:word-count="846" meta:character-count="4212" meta:non-whitespace-character-count="3584"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">99769</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">83</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">22744</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">11873</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">12365</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">6271</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">102803</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">7793</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">6193</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">99769</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">83</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">22742</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">111640</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">12446</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -745,7 +745,7 @@
  <office:master-styles>
   <style:master-page style:name="Standard" style:page-layout-name="pm1">
    <style:footer>
-    <text:p text:style-name="P1"><text:span text:style-name="T1">FourFor – fiche technique son</text:span><text:tab/><text:page-number text:select-page="current">4</text:page-number>/<text:page-count>5</text:page-count><text:tab/>Mise à jour le <text:modification-date style:data-style-name="N37">30/09/20</text:modification-date></text:p>
+    <text:p text:style-name="P1"><text:span text:style-name="T1">FourFor – fiche technique son</text:span><text:tab/><text:page-number text:select-page="current">1</text:page-number>/<text:page-count>5</text:page-count><text:tab/>Mise à jour le <text:modification-date style:data-style-name="N37">30/09/20</text:modification-date></text:p>
    </style:footer>
   </style:master-page>
  </office:master-styles>
@@ -762,7 +762,7 @@
    <text:p text:style-name="P54">FourFor</text:p>
    <text:p text:style-name="P53">Fiche technique son</text:p>
    <text:h text:style-name="P58" text:outline-level="1">Contact</text:h>
-   <text:p text:style-name="P52">Antoine Villeret +33 620 15 56 72 <text:a xlink:type="simple" xlink:href="mailto:antoine.villeret@gmail.com" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">antoine.villeret@gmail.com</text:a></text:p>
+   <text:p text:style-name="P52"><text:span text:style-name="T42">Régisseur son / informatique : </text:span>Antoine Villeret +33 620 15 56 72 <text:a xlink:type="simple" xlink:href="mailto:antoine.villeret@gmail.com" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">antoine.villeret@gmail.com</text:a></text:p>
    <text:h text:style-name="P57" text:outline-level="1">Console</text:h>
    <text:p text:style-name="P51">Compte tenu des patchs d’entrée et de sortie détaillés ci-dessous ainsi que des besoins du spectacle, une console numérique avec 8 entrées micro, 8 entrées ligne, 1 entrée/sortie ADAT et 3 réverbérations intégrées est nécessaire. Les console<text:span text:style-name="T41">s</text:span> Midas M32 ou Yamaha CL Series (3 ou 5) conviennent tout à fait. Une Yamaha M7CL-48 peut également convenir.</text:p>
    <text:h text:style-name="Heading_20_1" text:outline-level="1">Diffusion</text:h>
