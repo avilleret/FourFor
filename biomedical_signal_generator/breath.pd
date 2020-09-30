@@ -133,24 +133,31 @@
 #X restore 75 197 pd jitter;
 #X floatatom 76 47 5 0 0 0 - - -;
 #N canvas 0 50 687 374 audio/gain 0;
-#X obj 113 200 outlet~;
-#X obj 146 75 + 100;
-#X obj 146 98 dbtorms;
-#X msg 146 121 \$1 10;
-#X obj 146 144 line~;
+#X obj 113 230 outlet~;
+#X obj 146 105 + 100;
+#X obj 146 128 dbtorms;
+#X msg 146 151 \$1 10;
+#X obj 146 174 line~;
 #X obj 113 12 inlet~;
-#X obj 113 177 *~;
-#X obj 146 42 ø.param audio/gain @unit dB @default -12 @range -96
--12 @clip both;
-#X msg 248 79 -12;
+#X obj 113 207 *~;
+#X floatatom 227 137 5 0 0 0 - - -;
+#X obj 228 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 163 80 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 146 42 ø.param audio/gain @unit dB @default -6 @range -96 -12
+@clip both;
+#X msg 248 79 -6;
 #X connect 1 0 2 0;
+#X connect 1 0 7 0;
 #X connect 2 0 3 0;
 #X connect 3 0 4 0;
 #X connect 4 0 6 1;
 #X connect 5 0 6 0;
 #X connect 6 0 0 0;
-#X connect 7 0 1 0;
-#X connect 8 0 1 0;
+#X connect 9 0 1 0;
+#X connect 10 0 1 0;
+#X connect 11 0 1 0;
 #X restore 255 500 pd audio/gain;
 #X obj 255 523 outlet~;
 #X obj 76 11 ø.parameter target_frequency @type float @unit bpm @default

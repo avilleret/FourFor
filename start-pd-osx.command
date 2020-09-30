@@ -26,6 +26,10 @@ sleep 0.5
 cd "${HERE}/subtitle"
   /Applications/Pd-0.49-1.app/Contents/Resources/bin/pd -noaudio subtitle.pd &
 
+sleep 0.5
+cd "${HERE}/remote"
+  /Applications/Pd-0.49-1.app/Contents/Resources/bin/pd -noaudio score_trigger.pd &
+
 # sleep 0.5
 # cd "${HERE}/midiplayer"
 #   /Applications/Pd-0.49-1.app/Contents/Resources/bin/pd -noaudio midiplayer.pd &
