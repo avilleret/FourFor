@@ -198,9 +198,9 @@
 #X connect 36 0 17 0;
 #X connect 37 0 8 1;
 #X restore 61 229 pd clock;
-#X obj 38 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+#X obj 38 165 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
 1;
-#X obj 58 53 cnv 15 130 60 empty clock_label 2'18" 5 30 0 42 -233017
+#X obj 58 53 cnv 15 130 60 empty clock_label 7'00" 5 30 0 42 -233017
 -66577 0;
 #X msg 72 305 \; clock_label label \$1;
 #X obj 507 438 *~ 0.1;
@@ -593,7 +593,7 @@
 #X obj 150 137 del 5000;
 #X obj 150 160 outlet;
 #X msg 150 102 stop;
-#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1 1
+#X obj 90 70 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1
 ;
 #X obj 29 100 del 100;
 #X floatatom 106 253 5 0 0 0 - - -;
@@ -650,7 +650,6 @@
 #X obj 457 438 *~ 0.1;
 #X obj 397 438 *~ 0.1;
 #X msg 267 288 global_address;
-#X obj 432 473 dac~ 9 10 11 12;
 #N canvas 0 23 353 288 chrono2 0;
 #X obj 115 46 inlet;
 #N canvas 735 288 450 490 make_another_symbol 0;
@@ -701,7 +700,7 @@
 #X obj 647 258 ø.remote ecg:/image.1/load;
 #X msg 693 162 global_address;
 #X text 637 86 fq 48000 \, del 50ms \, buf 512;
-#N canvas 0 23 450 300 audio-config 0;
+#N canvas 81 23 450 300 audio-config 0;
 #X obj 165 126 mediasettings/audiosettings;
 #X msg 165 100 params @samplerate 48000 @advance 50;
 #X obj 165 44 loadbang;
@@ -712,6 +711,7 @@
 #X restore 549 12 pd audio-config;
 #X obj 418 171 symbol;
 #X msg 418 150 cartels/four2.jpg;
+#X obj 417 486 dac~ 15 16 17 18;
 #X connect 0 1 43 0;
 #X connect 1 1 46 0;
 #X connect 2 1 44 0;
@@ -730,28 +730,28 @@
 #X connect 19 0 23 0;
 #X connect 20 0 19 0;
 #X connect 20 0 26 0;
-#X connect 20 0 57 0;
+#X connect 20 0 56 0;
 #X connect 21 0 47 0;
-#X connect 24 0 56 3;
-#X connect 25 0 56 0;
+#X connect 24 0 68 3;
+#X connect 25 0 68 0;
 #X connect 26 0 27 0;
+#X connect 27 0 59 0;
 #X connect 27 0 60 0;
-#X connect 27 0 61 0;
 #X connect 28 0 20 1;
 #X connect 29 0 33 0;
 #X connect 30 0 31 0;
 #X connect 31 0 29 0;
 #X connect 32 0 31 0;
 #X connect 33 0 29 0;
-#X connect 34 0 68 0;
+#X connect 34 0 67 0;
 #X connect 35 0 46 0;
 #X connect 36 0 45 0;
 #X connect 37 0 43 0;
 #X connect 38 0 27 0;
-#X connect 39 0 63 0;
-#X connect 40 0 62 0;
-#X connect 41 0 59 0;
-#X connect 42 0 58 0;
+#X connect 39 0 62 0;
+#X connect 40 0 61 0;
+#X connect 41 0 58 0;
+#X connect 42 0 57 0;
 #X connect 43 0 4 0;
 #X connect 44 0 11 0;
 #X connect 45 0 13 0;
@@ -760,9 +760,9 @@
 #X connect 48 0 27 0;
 #X connect 50 0 51 0;
 #X connect 51 0 52 0;
-#X connect 53 0 56 2;
-#X connect 54 0 56 1;
-#X connect 55 0 58 0;
-#X connect 64 0 63 0;
-#X connect 67 0 41 0;
-#X connect 68 0 67 0;
+#X connect 53 0 68 2;
+#X connect 54 0 68 1;
+#X connect 55 0 57 0;
+#X connect 63 0 62 0;
+#X connect 66 0 41 0;
+#X connect 67 0 66 0;
