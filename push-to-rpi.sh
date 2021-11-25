@@ -5,7 +5,7 @@ HERE=`dirname $(readlink -f $0)`
 ips=(tv cartel irm ecg raspberrypi)
 
 cd ${HERE}/build-rpi
-ninja install
+# ninja install
 
 for i in "${ips[@]}"
 do

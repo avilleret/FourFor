@@ -1,0 +1,12 @@
+#N canvas 1337 720 450 300 10;
+#X obj 74 82 ossia.client biomedical_signal_generator;
+#X msg 71 53 connect oscquery;
+#X obj 86 151 ø.remote ecg/value;
+#X floatatom 49 153 5 0 0 0 - - -;
+#X msg 194 49 namespace;
+#X obj 74 105 print;
+#X connect 0 0 5 0;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 3 0 2 0;
+#X connect 4 0 0 0;

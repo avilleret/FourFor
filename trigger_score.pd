@@ -1,0 +1,13 @@
+#N canvas 1202 191 698 397 12;
+#X obj 54 85 ossia.client score 0;
+#X msg 54 57 connect oscquery ws://192.168.32.20:9999;
+#X obj 54 110 print;
+#X msg 96 171 score:/FourFor/processes/Scenario.1/syncs/Touch4/trigger
+;
+#X obj 66 256 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 66 294 ossia.remote score:/FourFor/processes/Scenario.1/syncs/touch3/trigger
+;
+#X connect 0 0 2 0;
+#X connect 1 0 0 0;
+#X connect 4 0 5 0;
