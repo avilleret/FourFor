@@ -157,6 +157,18 @@ bool;
 #X obj 977 373 ossia.parameter live-bridge:/bug_disklavier @type bool
 ;
 #X msg 977 413 18;
+#X obj 1017 414 sel 1;
+#X msg 1017 433 19;
+#X obj 1057 434 sel 1;
+#X obj 1017 393 ossia.parameter live-bridge:/imaginary_landscape @type
+bool;
+#X obj 1057 413 ossia.parameter live-bridge:/telenovela @type bool
+;
+#X msg 1057 453 20;
+#X obj 1097 454 sel 1;
+#X msg 1097 473 21;
+#X obj 1097 433 ossia.parameter live-bridge:/entree_public @type bool
+;
 #X connect 0 0 2 0;
 #X connect 0 1 2 1;
 #X connect 1 0 22 0;
@@ -237,3 +249,12 @@ bool;
 #X connect 82 0 84 0;
 #X connect 83 0 82 0;
 #X connect 84 0 10 0;
+#X connect 85 0 86 0;
+#X connect 86 0 10 0;
+#X connect 87 0 90 0;
+#X connect 88 0 85 0;
+#X connect 89 0 87 0;
+#X connect 90 0 10 0;
+#X connect 91 0 92 0;
+#X connect 92 0 10 0;
+#X connect 93 0 91 0;

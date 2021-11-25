@@ -1,0 +1,2 @@
+#N canvas 0 23 450 300 10;
+#X obj 200 117 clone -x player 16 bip;
